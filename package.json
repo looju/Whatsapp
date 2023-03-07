@@ -9,10 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-masked-view/masked-view": "0.2.8",
+    "@react-navigation/material-top-tabs": "^6.6.2",
+    "@react-navigation/native": "^6.1.6",
     "expo": "~48.0.5",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.3"
+    "react-native": "0.71.3",
+    "react-native-gesture-handler": "~2.9.0",
+    "react-native-tab-view": "^3.5.1",
+    "react-native-pager-view": "6.1.2",
+    "expo-asset": "~8.9.0",
+    "expo-constants": "~14.2.1",
+    "expo-contacts": "~12.0.1",
+    "expo-image-picker": "~14.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
