@@ -1,10 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, LogBox } from "react-native";
 import { useAssets } from "expo-asset";
 import { ActivityIndicator } from "react-native";
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
+import { NavigationContainer } from "@react-navigation/native";
+import { SignInNav } from "./Navigator/SignInNav";
+
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -21,10 +25,13 @@ function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      {!currentUser ? (
+      <SignInNav/>
+      ) : (
+        <Text></Text>
+      )}
+    </NavigationContainer>
   );
 }
 
