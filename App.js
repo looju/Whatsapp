@@ -33,7 +33,18 @@ function App() {
 function Main() {
   const [Assets] = useAssets(require("./assets/favicon.png"));
   if (!Assets) {
-    return <ActivityIndicator color="green" />;
+    return (
+      <View
+        style={{
+          backgroundColor: "#000",
+          alignItems: "center",
+          justifyContent: "center",
+          flex:1
+        }}
+      >
+        <ActivityIndicator color="green" size={15}/>
+      </View>
+    );
   } else {
     return (
       <ContextWrapper>

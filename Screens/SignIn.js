@@ -82,14 +82,16 @@ export const SignIn = () => {
           textColor={colors.white}
           style={{ width: 200 }}
           onPress={() => handlePress()}
-          disabled={!password && !email}
+          // disabled={!password && !email}
         >
           {mode == "SignUp" ? "Sign up" : "Login in"}
         </Button>
       </View>
       <TouchableOpacity
         style={Styles.opacity}
-        onPress={mode == "SignUp" ? setMode("SingIn") : setMode("SignUp")}
+        onPress={() =>
+          mode == "SignUp" ? setMode("SingIn") : setMode("SignUp")
+        }
       >
         <Text style={{ color: colors.white }}>
           {mode == "SignUp"
