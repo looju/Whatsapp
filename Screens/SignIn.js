@@ -19,13 +19,14 @@ export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState("SignUp");
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const handlePress = async () => {
     if (mode === "SignUp") {
-      await signUp(email, password);
+      await signUp(email, password).catch((error) => setErrorMsg(error));
     }
     if (mode === "SignIn") {
-      await signIn(email, password);
+      await signIn(email, password).catch((error) => setErrorMsg(error));
     }
   };
 
@@ -73,6 +74,11 @@ export const SignIn = () => {
           keyboardType="default"
         />
       </View>
+      {errorMsg && (
+        <View style={Styles.errorView}>
+          <Text style={{ color: colors.danger, fontSize: 14 }}>{errorMsg}</Text>
+        </View>
+      )}
       <View style={Styles.buttonView}>
         <Button
           accessibilityLabel="Sign Up"
@@ -134,6 +140,9 @@ const Styles = StyleSheet.create({
     marginTop: 20,
   },
   opacity: {
+    marginTop: 15,
+  },
+  errorView: {
     marginTop: 15,
   },
 });

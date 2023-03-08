@@ -9,18 +9,20 @@ const palette = {
   gray: "#3C3C3C",
   lightGray: "#757575",
   iconGray: "#717171",
-  black:"#000"
+  black: "#000",
+  red: "#ff0000",
 };
 
 export const theme = {
   colors: {
     background: palette.smokeWhite,
     foreground: palette.tealGreenDark,
+    danger: palette.red,
     primary: palette.tealGreen,
     tertiary: palette.lime,
     secondary: palette.green,
     white: palette.white,
-    black:palette.black,
+    black: palette.black,
     text: palette.gray,
     secondaryText: palette.lightGray,
     iconGray: palette.iconGray,

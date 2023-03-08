@@ -25,7 +25,7 @@ function App() {
 
   return (
     <NavigationContainer>
-      {!currentUser ? <SignInNav /> : <Text></Text>}
+      {!currentUser ? <SignInNav /> : <Text>hiiiiiii home screen</Text>}
     </NavigationContainer>
   );
 }
