@@ -22,11 +22,11 @@ export const auth = getAuth(app);
 export const storage = getStorage(app);
 export const db = getFirestore(app);
 
-export function SignIn(email, password) {
+export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
-export function SignUp(email, password) {
+export function signUp(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
 }
 

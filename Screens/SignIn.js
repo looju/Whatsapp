@@ -1,6 +1,13 @@
-import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import React, { useContext, useState } from "react";
-import { SignUp, SignIn } from "../Config/firebase";
+import { signUp, signIn } from "../Config/Firebase";
 import { Button } from "react-native-paper";
 import { GlobalContext } from "../Services/Context/Context";
 
@@ -15,10 +22,10 @@ export const SignIn = () => {
 
   const handlePress = async () => {
     if (mode === "SignUp") {
-      await SignUp(email, password);
+      await signUp(email, password);
     }
     if (mode === "SignIn") {
-      await SignIn(email, password);
+      await signIn(email, password);
     }
   };
 
@@ -71,13 +78,25 @@ export const SignIn = () => {
           accessibilityLabel="Sign Up"
           dark={true}
           mode="contained"
-          buttonColor={colors.secondary}
+          buttonColor={!password && !email ? colors.iconGray : colors.secondary}
           textColor={colors.white}
           style={{ width: 200 }}
+          onPress={() => handlePress()}
+          disabled={!password && !email}
         >
-          SIGN UP
+          {mode == "SignUp" ? "Sign up" : "Login in"}
         </Button>
       </View>
+      <TouchableOpacity
+        style={Styles.opacity}
+        onPress={mode == "SignUp" ? setMode("SingIn") : setMode("SignUp")}
+      >
+        <Text style={{ color: colors.white }}>
+          {mode == "SignUp"
+            ? "Already have an account? Sign in"
+            : "Don't have an account? Sign up "}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -111,6 +130,9 @@ const Styles = StyleSheet.create({
   },
   buttonView: {
     marginTop: 20,
+  },
+  opacity: {
+    marginTop: 15,
   },
 });
 
