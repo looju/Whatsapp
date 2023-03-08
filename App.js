@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInNav } from "./Navigator/SignInNav";
+import { ContextWrapper } from "./Services/Context/ContextWrapper";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -33,7 +34,11 @@ function Main() {
   if (!Assets) {
     return <ActivityIndicator color="green" />;
   } else {
-    return <App />;
+    return (
+      <ContextWrapper>
+        <App />
+      </ContextWrapper>
+    );
   }
 }
 
