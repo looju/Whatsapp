@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { Text, View, LogBox } from "react-native";
 import { useAssets } from "expo-asset";
 import { ActivityIndicator } from "react-native";
@@ -30,7 +31,7 @@ function App() {
 }
 
 function Main() {
-  consst[Assets] = useAssets(require("./assets/favicon.png"));
+  const [Assets] = useAssets(require("./assets/favicon.png"));
   if (!Assets) {
     return <ActivityIndicator color="green" />;
   } else {
