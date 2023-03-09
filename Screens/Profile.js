@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  TextInput,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
@@ -42,9 +49,15 @@ export const Profile = () => {
             size={45}
           />
         ) : (
-          <Image />
+          <Image source={{ uri: selectedImage }} style={Styles.image} />
         )}
       </TouchableOpacity>
+      <TextInput
+        placeholder="Enter your username"
+        value={displayName}
+        onChangeText={(text) => setDisplayName(text)}
+        style={[Styles.input, { borderBottomColor: colors.primary }]}
+      />
     </View>
   );
 };
@@ -64,5 +77,17 @@ const Styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 120,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  image: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 120,
+  },
+  input: {
+    marginTop: 40,
+    borderBottomWidth: 2,
+    width: "100%",
   },
 });
