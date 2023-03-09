@@ -7,7 +7,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInNav } from "./Navigator/SignInNav";
+import { ProfileNav } from "./Navigator/ProfileNav";
 import { ContextWrapper } from "./Services/Context/ContextWrapper";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const Stack = createStackNavigator();
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -25,7 +29,14 @@ function App() {
 
   return (
     <NavigationContainer>
-      {!currentUser ? <SignInNav /> : <Text>hiiiiiii home screen</Text>}
+      {!currentUser ? (
+        <SignInNav />
+      ) : (
+        <Stack.Navigator>
+        
+          {!currentUser.displayName && <ProfileNav />}
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
@@ -39,10 +50,10 @@ function Main() {
           backgroundColor: "#000",
           alignItems: "center",
           justifyContent: "center",
-          flex:1
+          flex: 1,
         }}
       >
-        <ActivityIndicator color="green" size={15}/>
+        <ActivityIndicator color="green" size={15} />
       </View>
     );
   } else {

@@ -43,7 +43,7 @@ export const SignIn = () => {
       <View style={Styles.inputView}>
         <TextInput
           value={email}
-          onChangeText={(text) => {
+          onChangeText={(text) => { 
             setEmail(text);
           }}
           style={[
