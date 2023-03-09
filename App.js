@@ -2,12 +2,14 @@ import "react-native-gesture-handler";
 import { Text, View, LogBox } from "react-native";
 import { useAssets } from "expo-asset";
 import { ActivityIndicator } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInNav } from "./Navigator/SignInNav";
 import { ProfileNav } from "./Navigator/ProfileNav";
+import { HomeNav } from "./Navigator/HomeNav";
+import { GlobalContext } from "./Services/Context/Context";
 import { ContextWrapper } from "./Services/Context/ContextWrapper";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -16,6 +18,9 @@ const Stack = createStackNavigator();
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const {
+    theme: { colors },
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
@@ -32,9 +37,18 @@ function App() {
       {!currentUser ? (
         <SignInNav />
       ) : (
-        <Stack.Navigator>
-        
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: colors.foreground,
+              shadowOpacity: 0,
+              elevation: 2,
+            },
+            headerTintColor:colors.black
+          }}
+        >
           {!currentUser.displayName && <ProfileNav />}
+          <HomeNav />
         </Stack.Navigator>
       )}
     </NavigationContainer>
