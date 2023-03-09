@@ -7,8 +7,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInNav } from "./Navigator/SignInNav";
-import { ProfileNav } from "./Navigator/ProfileNav";
-import { HomeNav } from "./Navigator/HomeNav";
+import { Home } from "./Screens/Home"; 
+import {Profile} from "./Screens/Profile";
 import { GlobalContext } from "./Services/Context/Context";
 import { ContextWrapper } from "./Services/Context/ContextWrapper";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -35,7 +35,14 @@ function App() {
   return (
     <NavigationContainer>
       {!currentUser ? (
-        <SignInNav />
+        // <SignInNav />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
       ) : (
         <Stack.Navigator
           screenOptions={{
@@ -44,11 +51,21 @@ function App() {
               shadowOpacity: 0,
               elevation: 2,
             },
-            headerTintColor:colors.black
+            headerTintColor: colors.black,
           }}
         >
-          {!currentUser.displayName && <ProfileNav />}
-          <HomeNav />
+          {!currentUser.displayName && (
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{ headerShown: false }}
+            />
+          )}
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerTitle: "Whatsapp" }}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>

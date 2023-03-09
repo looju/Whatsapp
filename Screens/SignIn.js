@@ -23,10 +23,10 @@ export const SignIn = () => {
 
   const handlePress = async () => {
     if (mode === "SignUp") {
-      await signUp(email, password).catch((error) => setErrorMsg(error));
+      await signUp(email, password).catch((error) => setErrorMsg(error.message));
     }
     if (mode === "SignIn") {
-      await signIn(email, password).catch((error) => setErrorMsg(error));
+      await signIn(email, password).catch((error) => setErrorMsg(error.message));
     }
   };
 
