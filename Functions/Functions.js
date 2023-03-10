@@ -16,5 +16,14 @@ export async function RequestPermission() {
 
 
 export async function UploadImage(uri,path,fName){
+    const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          resolve(xhr.response);
+        }
+        xhr.responseType = "blob";
+        xhr.open("GET", uri, true);
+        xhr.send(null);
+      });
 
 }
