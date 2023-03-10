@@ -1,8 +1,21 @@
-import React, { useState } from "react";
-import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  Dimensions,
+} from "react-native";
+import { GlobalContext } from "../Services/Context/Context";
 
-export const ModalComponent= ({message, buttonMessage}) => {
+export const ModalComponent = ({ message, buttonMessage }) => {
+  const {
+    theme: { colors },
+  } = useContext(GlobalContext);
+
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -14,7 +27,15 @@ export const ModalComponent= ({message, buttonMessage}) => {
         }}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+          <View
+            style={[
+              styles.modalView,
+              {
+                backgroundColor: colors.secondary,
+                shadowColor: colors.foreground,
+              },
+            ]}
+          >
             <Text style={styles.modalText}>{message}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -35,15 +56,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
-    backgroundColor: "black",
+    backgroundColor: rgba(0, 0, 0, 0.4),
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
+    width: Dimensions.get("screen").width * 0.4,
+    height: Dimensions.get("screen").height * 0.4,
     alignItems: "center",
-    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
