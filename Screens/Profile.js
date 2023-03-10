@@ -20,6 +20,11 @@ export const Profile = () => {
   const [displayName, setDisplayName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
 
+
+  const handlePress=()=>{
+    
+  }
+
   return (
     <View
       style={[
@@ -61,14 +66,16 @@ export const Profile = () => {
         onChangeText={(text) => setDisplayName(text)}
         style={[Styles.input, { borderBottomColor: colors.primary }]}
       />
-      <View>
+      <View style={Styles.buttonView}>
         <Button
           accessibilityLabel="Next"
           dark={true}
           mode="contained"
-          buttonColor={colors.secondary}
+          buttonColor={!displayName ? colors.iconGray : colors.secondary}
           textColor={colors.white}
-          style={{ width: 200 }}
+          disabled={!displayName}
+          style={{ width: 80 }}
+          onPress={()=>handlePress()}
         >
           Next
         </Button>
@@ -105,4 +112,8 @@ const Styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: "100%",
   },
+  buttonView:{
+    marginTop:"auto",
+    width:80
+  }
 });
