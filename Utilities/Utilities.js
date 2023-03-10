@@ -1,4 +1,3 @@
-
 const palette = {
   tealGreen: "#128c7e",
   tealGreenDark: "#075e54",

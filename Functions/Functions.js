@@ -9,7 +9,12 @@ export async function PickImage() {
   return result;
 }
 
-export async function requestPermission() {
+export async function RequestPermission() {
   let { status } = await ImagePicker.requestCameraPermissionsAsync();
   return status;
+}
+
+
+export async function UploadImage(uri,path,fName){
+
 }

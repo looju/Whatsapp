@@ -10,7 +10,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
-import { PickImage, requestPermission } from "../Functions/Functions";
+import { PickImage, RequestPermission } from "../Functions/Functions";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ModalComponent } from "./../Components/Modal";
 
@@ -48,7 +48,7 @@ export const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      const status = await requestPermission();
+      const status = await RequestPermission();
       setPermissionStatus(status);
     })();
   }, []);
