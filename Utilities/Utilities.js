@@ -1,9 +1,13 @@
-export async function PickImage(){
-  
+import * as ImagePicker from "expo-image-picker";
+
+export async function PickImage() {
+  let result = await ImagePicker.launchCameraAsync({
+    allowsEditing: true,
+    quality: 1,
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  });
+  return result
 }
-
-
-
 
 const palette = {
   tealGreen: "#128c7e",
@@ -16,7 +20,7 @@ const palette = {
   gray: "#3C3C3C",
   lightGray: "#757575",
   iconGray: "#717171",
-  lightIconGray:"#D3D3D3",
+  lightIconGray: "#D3D3D3",
   black: "#000",
   red: "#ff0000",
 };
@@ -34,6 +38,6 @@ export const theme = {
     text: palette.gray,
     secondaryText: palette.lightGray,
     iconGray: palette.iconGray,
-    lightIconGrey: palette.lightIconGray
+    lightIconGrey: palette.lightIconGray,
   },
 };
