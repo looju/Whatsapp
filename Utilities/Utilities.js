@@ -9,7 +9,11 @@ export async function PickImage() {
   return result
 }
 
+export async function requestPermission(){
+let {status}=await ImagePicker.requestCameraPermissionsAsync()
+return status
 
+}
 
 const palette = {
   tealGreen: "#128c7e",

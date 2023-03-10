@@ -22,7 +22,7 @@ export const Profile = () => {
 
 
   const handlePress=()=>{
-    
+
   }
 
   return (
@@ -51,7 +51,7 @@ export const Profile = () => {
           <MaterialCommunityIcons
             name="camera-plus"
             color={colors.iconGray}
-            selectionColor={colors.foreground}
+            selectionColor={colors.lightIconGrey}
             size={45}
           />
         ) : (
