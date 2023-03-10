@@ -5,12 +5,13 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Modal,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
-import {PickImage} from "../Utilities/Utilities"
+import { PickImage, requestPermission } from "../Utilities/Utilities";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export const Profile = () => {
@@ -20,20 +21,34 @@ export const Profile = () => {
 
   const [displayName, setDisplayName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+  const [permissionStatus, setPermissionStatus] = useState(null);
 
+  const handlePress = () => {};
 
-  const handlePress=()=>{
-
-  }
-
-
-  const handleProfilePicture=async()=>{
-    const result=await PickImage()
-    if (!result.canceled){
-      console.log(result)
-
+  const handleProfilePicture = async () => {
+    const result = await PickImage();
+    if (!result.canceled) {
+      console.log(result);
     }
-  }
+    if (!permissionStatus) {
+      return <Modal></Modal>;
+    }
+    if (permissionStatus !== "granted") {
+      return (
+        <Text>
+          Permissions denied. Whatsapp requires this permisson to function
+          properly
+        </Text>
+      );
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      const status = await requestPermission();
+      setPermissionStatus(status);
+    })();
+  }, []);
 
   return (
     <View
@@ -86,7 +101,7 @@ export const Profile = () => {
           textColor={colors.white}
           disabled={!displayName}
           style={{ width: 80 }}
-          onPress={()=>handlePress()}
+          onPress={() => handlePress()}
         >
           Next
         </Button>
@@ -123,8 +138,8 @@ const Styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: "100%",
   },
-  buttonView:{
-    marginTop:"auto",
-    width:80
-  }
+  buttonView: {
+    marginTop: "auto",
+    width: 80,
+  },
 });
