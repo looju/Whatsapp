@@ -7,6 +7,7 @@ import {
   TextInput,
 } from "react-native";
 import React, { useContext, useState } from "react";
+import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -38,7 +39,7 @@ export const Profile = () => {
       <TouchableOpacity
         style={[
           Styles.selectImgButton,
-          { backgeoundColor: colors.lightIconGrey },
+          { backgroundColor: colors.secondaryText },
         ]}
       >
         {!selectedImage ? (
@@ -54,10 +55,24 @@ export const Profile = () => {
       </TouchableOpacity>
       <TextInput
         placeholder="Enter your username"
+        placeholderTextColor={colors.iconGray}
+        textAlign="center"
         value={displayName}
         onChangeText={(text) => setDisplayName(text)}
         style={[Styles.input, { borderBottomColor: colors.primary }]}
       />
+      <View>
+        <Button
+          accessibilityLabel="Next"
+          dark={true}
+          mode="contained"
+          buttonColor={colors.secondary}
+          textColor={colors.white}
+          style={{ width: 200 }}
+        >
+          Next
+        </Button>
+      </View>
     </View>
   );
 };
