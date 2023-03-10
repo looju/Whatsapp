@@ -5,7 +5,7 @@ const palette = {
   lime: "#dcf8c6",
   skyblue: "#34b7f1",
   smokeWhite: "#ece5dd",
-  white: "white",
+  white: "#fff",
   gray: "#3C3C3C",
   lightGray: "#757575",
   iconGray: "#717171",

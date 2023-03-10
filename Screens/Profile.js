@@ -10,9 +10,10 @@ import React, { useContext, useState, useEffect } from "react";
 import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
-import { PickImage, RequestPermission } from "../Functions/Functions";
+import { auth } from "../Config/Firebase";
+import { PickImage, RequestPermission, UploadImage } from "../Functions/Functions";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { ModalComponent } from "./../Components/Modal";
+import { ModalComponent } from "../Components/Modal";
 
 export const Profile = () => {
   const {
@@ -23,7 +24,14 @@ export const Profile = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [permissionStatus, setPermissionStatus] = useState(null);
 
-  const handlePress = () => {};
+  const handlePress = async () => {
+    const user = auth.currentUser; // fetch current user
+    let photoURL;
+    if (selectedImage) {
+     const {url}= await UploadImage(selectedImage,`images/${user.uid}`,"profilePicture")
+     photoURL=url
+    }
+  };
 
   const handleProfilePicture = async () => {
     const result = await PickImage();
@@ -66,14 +74,11 @@ export const Profile = () => {
       <Text style={{ fontSize: 22, color: colors.foreground }}>
         Profile Info
       </Text>
-      <Text style={{ fontSize: 14, color: colors.iconGray, marginTop: 20 }}>
+      <Text style={{ fontSize: 14, color: colors.white, marginTop: 20 }}>
         Please provide a display name and an optional profile photo
       </Text>
       <TouchableOpacity
-        style={[
-          Styles.selectImgButton,
-          { backgroundColor: colors.secondaryText },
-        ]}
+        style={[Styles.selectImgButton, { backgroundColor: colors.background }]}
         onPress={handleProfilePicture}
       >
         {!selectedImage ? (
