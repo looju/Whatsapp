@@ -10,6 +10,7 @@ import React, { useContext, useState } from "react";
 import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
+import {PickImage} from "../Utilities/Utilities"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export const Profile = () => {
@@ -23,6 +24,15 @@ export const Profile = () => {
 
   const handlePress=()=>{
 
+  }
+
+
+  const handleProfilePicture=async()=>{
+    const result=await PickImage()
+    if (!result.canceled){
+      console.log(result)
+
+    }
   }
 
   return (
@@ -46,6 +56,7 @@ export const Profile = () => {
           Styles.selectImgButton,
           { backgroundColor: colors.secondaryText },
         ]}
+        onPress={handleProfilePicture}
       >
         {!selectedImage ? (
           <MaterialCommunityIcons
