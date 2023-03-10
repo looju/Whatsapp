@@ -11,7 +11,11 @@ import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
 import { auth } from "../Config/Firebase";
-import { PickImage, RequestPermission, UploadImage } from "../Functions/Functions";
+import {
+  PickImage,
+  RequestPermission,
+  UploadImage,
+} from "../Functions/Functions";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ModalComponent } from "../Components/Modal";
 
@@ -28,8 +32,20 @@ export const Profile = () => {
     const user = auth.currentUser; // fetch current user
     let photoURL;
     if (selectedImage) {
-     const {url}= await UploadImage(selectedImage,`images/${user.uid}`,"profilePicture")
-     photoURL=url
+      const { url } = await UploadImage(
+        selectedImage,
+        `images/${user.uid}`,
+        "profilePicture"
+      );
+      photoURL = url;
+    }
+
+    const userData = {
+      displayName,
+      email: user.email,
+    };
+    if (photoURL) {
+      userData.photoURL = photoURL; //adding a new key to the userData object if photoURL exists
     }
   };
 
