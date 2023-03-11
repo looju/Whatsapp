@@ -10,7 +10,9 @@ import React, { useContext, useState, useEffect } from "react";
 import { Button } from "react-native-paper";
 import Constants from "expo-constants";
 import { GlobalContext } from "../Services/Context/Context";
-import { auth } from "../Config/Firebase";
+import { auth, db } from "../Config/Firebase";
+import { updateProfile } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
 import {
   PickImage,
   RequestPermission,
@@ -47,6 +49,10 @@ export const Profile = () => {
     if (photoURL) {
       userData.photoURL = photoURL; //adding a new key to the userData object if photoURL exists
     }
+    await Promise.all([
+      updateProfile(user, userData),
+      setDoc(doc(db, "users", user.uid), { ...userData, uid: user.uid }),
+    ]);
   };
 
   const handleProfilePicture = async () => {
