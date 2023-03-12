@@ -21,7 +21,7 @@ import {
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ModalComponent } from "../Components/Modal";
 
-export const Profile = () => {
+export const Profile = ({navigation}) => {
   const {
     theme: { colors },
   } = useContext(GlobalContext);
@@ -29,6 +29,7 @@ export const Profile = () => {
   const [displayName, setDisplayName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [permissionStatus, setPermissionStatus] = useState(null);
+  
 
   const handlePress = async () => {
     const user = auth.currentUser; // fetch current user
@@ -52,7 +53,9 @@ export const Profile = () => {
     await Promise.all([
       updateProfile(user, userData),
       setDoc(doc(db, "users", user.uid), { ...userData, uid: user.uid }),
-    ]);
+    ])
+    .then()
+     navigation.navigate("Home")
   };
 
   const handleProfilePicture = async () => {
@@ -120,7 +123,10 @@ export const Profile = () => {
         textAlign="center"
         value={displayName}
         onChangeText={(text) => setDisplayName(text)}
-        style={[Styles.input, { borderBottomColor: colors.primary }]}
+        style={[
+          Styles.input,
+          { borderBottomColor: colors.primary, color: colors.white },
+        ]}
       />
       <View style={Styles.buttonView}>
         <Button
