@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  ActivityIndicator,
+  Dimensions
 } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { Button } from "react-native-paper";
@@ -29,11 +31,13 @@ export const Profile = ({navigation}) => {
   const [displayName, setDisplayName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [permissionStatus, setPermissionStatus] = useState(null);
+  const [loading,setLoading]=useState(false)
   
 
   const handlePress = async () => {
     const user = auth.currentUser; // fetch current user
     let photoURL;
+    setLoading(true)
     if (selectedImage) {
       const { url } = await UploadImage(
         selectedImage,
@@ -54,7 +58,7 @@ export const Profile = ({navigation}) => {
       updateProfile(user, userData),
       setDoc(doc(db, "users", user.uid), { ...userData, uid: user.uid }),
     ])
-    .then()
+    .then(setLoading(false))
      navigation.navigate("Home")
   };
 
@@ -142,6 +146,9 @@ export const Profile = ({navigation}) => {
           Next
         </Button>
       </View>
+      <View style={Styles.indicator}>
+  <ActivityIndicator color={colors.secondary} size={15}/>
+      </View>
     </View>
   );
 };
@@ -178,4 +185,10 @@ const Styles = StyleSheet.create({
     marginTop: "auto",
     width: 80,
   },
+  indicator:{
+    margniTop:Dimensions.get("screen").height*0.7,
+    width: "100%",
+    height:100,
+    
+  }
 });

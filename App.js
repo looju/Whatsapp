@@ -35,14 +35,14 @@ function App() {
   return (
     <NavigationContainer>
       {!currentUser ? (
-        <SignInNav />
-        // <Stack.Navigator>
-        //   <Stack.Screen
-        //     name="Profile"
-        //     component={Profile}
-        //     options={{ headerShown: false }}
-        //   />
-        // </Stack.Navigator>
+        // <SignInNav />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
       ) : (
         <Stack.Navigator
           screenOptions={{
