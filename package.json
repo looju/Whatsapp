@@ -33,10 +33,12 @@
     "react-native-pager-view": "6.1.2",
     "react-native-paper": "^5.3.1",
     "react-native-tab-view": "^3.5.1",
+    "react-native-typewriter": "^0.7.0",
     "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "react-native-dotenv": "^3.4.8"
   },
   "private": true
 }
