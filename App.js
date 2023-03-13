@@ -13,7 +13,9 @@ import { GlobalContext } from "./Services/Context/Context";
 import { ContextWrapper } from "./Services/Context/ContextWrapper";
 import { createStackNavigator } from "@react-navigation/stack";
 
+
 const Stack = createStackNavigator();
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
