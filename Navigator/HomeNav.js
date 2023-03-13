@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Photo } from "../Screens/Home/Photo";
 import { Chat } from "../Screens/Home/Chat";
+import { AI } from "../Screens/Home/AI";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { GlobalContext } from "../Services/Context/Context";
 
@@ -25,8 +26,20 @@ export const HomeNav = () => {
                 color={colors.white}
               />
             );
+          } else if (route.name === "AI") {
+            return (
+              <MaterialCommunityIcons
+                name="comment-search-outline"
+                size={20}
+                color={colors.white}
+              />
+            );
           } else {
-            return <Text style={{color:colors.white}}>{route.name.toLocaleUpperCase()}</Text>;
+            return (
+              <Text style={{ color: colors.white }}>
+                {route.name.toLocaleUpperCase()}
+              </Text>
+            );
           }
         },
         tabBarShowIcon: true,
@@ -34,9 +47,11 @@ export const HomeNav = () => {
         tabBarIndicatorStyle: { backgroundColor: colors.white },
         tabBarStyle: { backgroundColor: colors.foreground },
       })}
+      initialRouteName="Chat"
     >
       <Tab.Screen name="Photo" component={Photo} />
       <Tab.Screen name="Chat" component={Chat} />
+      <Tab.Screen name="Ai" component={AI} />
     </Tab.Navigator>
   );
 };
