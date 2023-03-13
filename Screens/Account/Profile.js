@@ -6,24 +6,24 @@ import {
   Image,
   TextInput,
   ActivityIndicator,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { Button } from "react-native-paper";
 import Constants from "expo-constants";
-import { GlobalContext } from "../Services/Context/Context";
-import { auth, db } from "../Config/Firebase";
+import { GlobalContext } from "../../Services/Context/Context";
+import { auth, db } from "../../Config/Firebase";
 import { updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import {
   PickImage,
   RequestPermission,
   UploadImage,
-} from "../Functions/Functions";
+} from "../../Functions/Functions";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { ModalComponent } from "../Components/Modal";
+import { ModalComponent } from "../../Components/Modal";
 
-export const Profile = ({navigation}) => {
+export const Profile = ({ navigation }) => {
   const {
     theme: { colors },
   } = useContext(GlobalContext);
@@ -31,13 +31,12 @@ export const Profile = ({navigation}) => {
   const [displayName, setDisplayName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [permissionStatus, setPermissionStatus] = useState(null);
-  const [loading,setLoading]=useState(false)
-  
+  const [loading, setLoading] = useState(false);
 
   const handlePress = async () => {
     const user = auth.currentUser; // fetch current user
     let photoURL;
-    setLoading(true)
+    setLoading(true);
     if (selectedImage) {
       const { url } = await UploadImage(
         selectedImage,
@@ -57,9 +56,8 @@ export const Profile = ({navigation}) => {
     await Promise.all([
       updateProfile(user, userData),
       setDoc(doc(db, "users", user.uid), { ...userData, uid: user.uid }),
-    ])
-    .then(setLoading(false))
-     navigation.navigate("Home")
+    ]).then(setLoading(false));
+    navigation.navigate("Home");
   };
 
   const handleProfilePicture = async () => {
@@ -147,7 +145,7 @@ export const Profile = ({navigation}) => {
         </Button>
       </View>
       <View style={Styles.indicator}>
-  <ActivityIndicator color={colors.secondary} size={15}/>
+        <ActivityIndicator color={colors.secondary} size={15} />
       </View>
     </View>
   );
@@ -185,10 +183,9 @@ const Styles = StyleSheet.create({
     marginTop: "auto",
     width: 80,
   },
-  indicator:{
-    margniTop:Dimensions.get("screen").height*0.7,
+  indicator: {
+    margniTop: Dimensions.get("screen").height * 0.7,
     width: "100%",
-    height:100,
-    
-  }
+    height: 100,
+  },
 });

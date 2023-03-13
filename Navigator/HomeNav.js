@@ -1,15 +1,14 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Home } from "../Screens/Home";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Photo } from '../Screens/Home/Photo';
+import { Chat } from '../Screens/Home/Chat';
 
-const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 
-export const HomeNav = () => {
+export const HomeNav=()=>{
   return (
-    <Stack.Screen
-      name="Home"
-      component={Home}
-      options={{headerTitle:"Whatsapp"}}
-    />
+    <Tab.Navigator>
+      <Tab.Screen name="Photo" component={Photo} />
+      <Tab.Screen name="Chat" component={Chat} />
+    </Tab.Navigator>
   );
-};
+}

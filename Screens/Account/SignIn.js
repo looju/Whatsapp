@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useContext, useState } from "react";
-import { signUp, signIn } from "../Config/Firebase";
+import { signUp, signIn } from "../../Config/Firebase";
 import { Button } from "react-native-paper";
-import { GlobalContext } from "../Services/Context/Context";
+import { GlobalContext } from "../../Services/Context/Context";
 
 export const SignIn = () => {
   const {
@@ -43,7 +43,7 @@ export const SignIn = () => {
       <View style={Styles.inputView}>
         <TextInput
           value={email}
-          onChangeText={(text) => { 
+          onChangeText={(text) => {
             setEmail(text);
           }}
           style={[
