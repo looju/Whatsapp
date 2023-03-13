@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Text } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Photo } from "../Screens/Home/Photo";
 import { Chat } from "../Screens/Home/Chat";
@@ -15,23 +16,22 @@ export const HomeNav = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: () => {
-          let iconName;
+        tabBarLabel: () => {
           if (route.name === "Photo") {
-            iconName = "camera-enhance-outline";
-          } else if (route.name === "Chat") {
-            iconName = "message-text";
+            return (
+              <MaterialCommunityIcons
+                name="camera"
+                size={20}
+                color={colors.white}
+              />
+            );
+          } else {
+            return <Text style={{color:colors.white}}>{route.name.toLocaleUpperCase()}</Text>;
           }
-          return (
-            <MaterialCommunityIcons
-              name={iconName}
-              size={20}
-              color={colors.white}
-            />
-          );
         },
         tabBarShowIcon: true,
-        tabBarLabelStyle:{color:colors.white},
+        tabBarLabelStyle: { color: colors.white },
+        tabBarIndicatorStyle: { backgroundColor: colors.white },
         tabBarStyle: { backgroundColor: colors.foreground },
       })}
     >
