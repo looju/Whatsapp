@@ -10,7 +10,6 @@ export const ReceiverMessage = ({ key, message }) => {
 
   return (
     <View style={[Styles.messageView, { backgroundColor: colors.white }]}>
-      <Image style={Styles.image} source={{ uri: message.photoURL }} />
       <Text style={[Styles.text,{color:colors.black}]}>{message}</Text>
     </View>
   );

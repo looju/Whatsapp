@@ -14,7 +14,15 @@ import React, { useEffect, useState } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ReceiverMessage } from "./../../Components/AI/ReceiverMessage";
 import { SenderMessage } from "./../../Components/AI/SenderMessage";
-import { doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  addDoc,
+  serverTimestamp,
+  onSnapShot,
+  query,
+  orderBy,
+} from "firebase/firestore";
 import { db, auth } from "./../../Config/Firebase";
 import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_KEY } from "@env";
@@ -24,6 +32,10 @@ export const AI = () => {
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
       title: "Lorem incididunt aute excepteur consectetur voluptate.",
+    },
+    {
+      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      title: "Lorem incididunt aute excepteur  voluptate.",
     },
   ];
 
@@ -35,6 +47,7 @@ export const AI = () => {
 
   const [input, setInput] = useState(null);
   const [message, setMessage] = useState(null);
+  const [userMsg, setUserMsg] = useState(false);
 
   console.log(input);
 
@@ -51,21 +64,22 @@ export const AI = () => {
     });
     setMessage(completion.data.choices[0].message.content);
 
-    const storeAIMessage = await setDoc(doc(db, "AIchat", "AIchatMsg"), {
-      timestamp: serverTimestamp(),
+    const storeAIandUserMessage = await setDoc(doc(db, "AIchat", "useremailgoeshere"), {
+      user: "useremailgoeshere",
+      usermessage: input,
       AImessage: message,
+      timestamp: serverTimestamp(),
     });
 
-    const storeUserMessage=await setDoc(doc(db,"AIchat","useremailgoeshere"),{
-      usermessage:input,
-      timestamp: serverTimestamp(),
-      user:"useremailgoeshere"
-    })
-
-    await Promise.all([completion, storeAIMessage, storeUserMessage])
+    
+    await Promise.all([completion, storeAIandUserMessage])
       .then(setInput(""))
       .catch((error) => console.log(error));
   };
+
+  useEffect(() => onSnapShot(doc(db, "AIchat","useremailgoeshere"),()=>{
+    
+  }));
 
   return (
     <ImageBackground
@@ -80,16 +94,20 @@ export const AI = () => {
         keyboardVerticalOffset={10}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <FlatList
-            data={DATA}
-            keyExtractor={(item) => item.id}
-            style={Styles.messageList}
-            inverted={-1}
-            renderItem={({ item }) => (
-              <SenderMessage message={input?.length > 0 ? input : null} />
-            )}
-
-          />
+          <View style={Styles.container}>
+            <FlatList
+              data={DATA}
+              keyExtractor={(item) => item.id}
+              style={Styles.messageList}
+              inverted={-1}
+              renderItem={({ item }) => (
+                <View style={Styles.container}>
+                  <SenderMessage message={input?.length > 0 ? input : null} />
+                  <ReceiverMessage message={"ChatGPT here!"} />
+                </View>
+              )}
+            />
+          </View>
         </TouchableWithoutFeedback>
 
         <View style={Styles.inputView}>
