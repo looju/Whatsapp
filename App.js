@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInNav } from "./Navigator/SignInNav";
-import { Profile } from "./Screens/Account/Profile/Profile";
+import { Profile } from "./Screens/Account/Profile";
 import { GlobalContext } from "./Services/Context/Context";
 import { ContextWrapper } from "./Services/Context/ContextWrapper";
 import { createStackNavigator } from "@react-navigation/stack";
