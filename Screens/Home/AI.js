@@ -10,18 +10,18 @@ import {
   FlatList,
   ImageBackground,
 } from "react-native";
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ReceiverMessage } from "./../../Components/AI/ReceiverMessage";
 import { SenderMessage } from "./../../Components/AI/SenderMessage";
-
+import { doc, setDoc } from "firebase/firestore";
+import { db, auth, serverTimeStamp } from "./../../Config/Firebase";
 
 export const AI = () => {
   const DATA = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title:
-        "Lorem incididunt aute excepteur consectetur voluptate.",
+      title: "Lorem incididunt aute excepteur consectetur voluptate.",
     },
   ];
 
@@ -30,6 +30,20 @@ export const AI = () => {
       <Text style={Styles.title}>{title}</Text>
     </View>
   );
+
+  const [input, setInput] = useState(null);
+
+  const handleSend = async (sendMessage) => {
+    const user = auth.currentUser;
+
+    await Promise.all([
+      setDoc(doc(db, "AIchat", user.email), {
+        email: user.email,
+        timestamp: serverTimeStamp(),
+        message: sendMessage,
+      }),
+    ]);
+  };
 
   return (
     <ImageBackground
@@ -57,6 +71,7 @@ export const AI = () => {
           <TextInput
             style={Styles.messageInput}
             placeholder="Send a message to AI..."
+            value={input}
           />
           <MaterialCommunityIcons color="#FF5864" size={30} name="send" />
         </View>
@@ -83,6 +98,6 @@ const Styles = StyleSheet.create({
     height: 15,
   },
   messageList: {
-    marginVertical:10
+    marginVertical: 10,
   },
 });
