@@ -144,9 +144,12 @@ export const Profile = ({ navigation }) => {
           Next
         </Button>
       </View>
-      <View style={Styles.indicator}>
-        <ActivityIndicator color={colors.secondary} size={15} />
-      </View>
+      {loading &&(
+ <View style={Styles.indicator}>
+ <ActivityIndicator color={colors.secondary} size={15} />
+</View>
+      )}
+     
     </View>
   );
 };

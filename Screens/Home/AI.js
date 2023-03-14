@@ -10,10 +10,11 @@ import {
   FlatList,
   ImageBackground,
 } from "react-native";
-import React from "react";
+import React,{useEffect,useState} from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ReceiverMessage } from "./../../Components/AI/ReceiverMessage";
 import { SenderMessage } from "./../../Components/AI/SenderMessage";
+
 
 export const AI = () => {
   const DATA = [
@@ -35,7 +36,7 @@ export const AI = () => {
       source={require("../../assets/Aibg.jpg")}
       resizeMode="cover"
       style={Styles.container}
-      blurRadius={3}
+      blurRadius={1}
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -79,7 +80,9 @@ const Styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   messageInput: {
-    height: 10,
+    height: 15,
   },
-  messageList: {},
+  messageList: {
+    marginVertical:10
+  },
 });

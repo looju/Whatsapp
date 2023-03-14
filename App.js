@@ -36,11 +36,11 @@ function App() {
     <NavigationContainer>
       {!currentUser ? (
         // <SignInNav />
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown:false}}>
           <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{ headerShown: false }}
+            name="Home"
+            component={HomeNav}
+            options={{ headerTitle: "Whatsapp" }}
           />
         </Stack.Navigator>
       ) : (

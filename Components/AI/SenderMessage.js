@@ -1,26 +1,31 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet,Dimensions } from "react-native";
+import React, { useContext } from "react";
+import { GlobalContext } from "../../Services/Context/Context";
 
 export const SenderMessage = ({ key, message }) => {
+  const {
+    theme: { colors },
+  } = useContext(GlobalContext);
+
   return (
-    <View style={Styles.messageView}>
-      <Text style={Styles.text}>{message.message}</Text>
+    <View style={[Styles.messageView, { backgroundColor: colors.foreground }]}>
+      <Text style={[Styles.text,{color:colors.white}]}>{message}</Text>
     </View>
   );
 };
 
 const Styles = StyleSheet.create({
   messageView: {
-    backgroundColor: "purple",
     borderTopEndRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 3,
     marginVertical: 2,
     marginHorizontal: 4,
     alignSelf: "flex-start",
-    marginLeft:"auto"
+    marginLeft: "auto",
+    maxWidth:Dimensions.get("Screen").width*0.4,
   },
-  text:{
-    color: "#fff"
-  }
+  text: {
+   fontSize:12
+  },
 });
