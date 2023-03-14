@@ -10,16 +10,17 @@ import {
   FlatList,
   ImageBackground,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ReceiverMessage } from "./../../Components/AI/ReceiverMessage";
 import { SenderMessage } from "./../../Components/AI/SenderMessage";
+import { GlobalContext } from "./../../Services/Context/Context";
 import {
   doc,
   setDoc,
   addDoc,
   serverTimestamp,
-  onSnapShot,
+  onSnapshot,
   query,
   orderBy,
 } from "firebase/firestore";
@@ -28,6 +29,9 @@ import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_KEY } from "@env";
 
 export const AI = () => {
+  const {
+    theme: { colors },
+  } = useContext(GlobalContext);
   const DATA = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -61,7 +65,6 @@ export const AI = () => {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: input }],
     });
- 
 
     const storeAIandUserMessage = await setDoc(
       doc(db, "AIchat", "useremailgoeshere"),
@@ -78,15 +81,21 @@ export const AI = () => {
       .catch((error) => console.log(error));
   };
 
-  useEffect(() =>
-    onSnapShot(doc(db, "AIchat", "useremailgoeshere"), (snapshot) => {
+  useEffect(
+    () =>
+      onSnapshot(
+        query(doc(db, "AIchat", "useremailgoeshere")),
+        orderBy("timeStamp", "desc")
+      ),
+    (snapshot) => {
       setPrevMsgs(
         snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }))
       );
-    })
+    },
+    [db]
   );
 
   return (
@@ -110,8 +119,11 @@ export const AI = () => {
               inverted={-1}
               renderItem={({ item }) => (
                 <View style={Styles.container}>
-                  <SenderMessage message={prevMsgs} />
-                  <ReceiverMessage message={prevMsgs} />
+                  <SenderMessage message={DATA.title} time={"thursday"} />
+                  <ReceiverMessage
+                    message={DATA.title}
+                    time={"thursday"}
+                  />
                 </View>
               )}
             />
@@ -121,13 +133,13 @@ export const AI = () => {
         <View style={Styles.inputView}>
           <TextInput
             style={Styles.messageInput}
-            placeholder="Send a message to AI..."
+            placeholder="Chat with AI..."
             value={input}
             onChangeText={(text) => setInput(text)}
             onSubmitEditing={() => handleSend()}
           />
           <MaterialCommunityIcons
-            color="#FF5864"
+            color={colors.foreground}
             size={30}
             name="send"
             onPress={() => handleSend()}
@@ -153,7 +165,7 @@ const Styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   messageInput: {
-    height: 15,
+    height: 20,
   },
   messageList: {
     marginVertical: 10,
