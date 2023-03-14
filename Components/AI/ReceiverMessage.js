@@ -10,9 +10,9 @@ export const ReceiverMessage = ({ key, message, time }) => {
   return (
     <View>
     <View
-      style={[Styles.messageView, { backgroundColor: colors.foreground }]}
+      style={[Styles.messageView, { backgroundColor: colors.white}]}
     >
-      <Text style={[Styles.text, { color: colors.white }]}>{message}</Text>
+      <Text style={[Styles.text, { color: colors.black }]}>{message.title}</Text>
     </View>
     <View style={Styles.timeTextView}>
      

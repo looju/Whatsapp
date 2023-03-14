@@ -67,9 +67,9 @@ export const AI = () => {
     });
 
     const storeAIandUserMessage = await setDoc(
-      doc(db, "AIchat", "useremailgoeshere"),
+      doc(db, "AIchat", "user.email"),
       {
-        user: "useremailgoeshere",
+        user: "user.email",
         usermessage: input,
         AImessage: completion?.data?.choices[0]?.message.content,
         timestamp: serverTimestamp(),
@@ -84,7 +84,7 @@ export const AI = () => {
   useEffect(
     () =>
       onSnapshot(
-        query(doc(db, "AIchat", "useremailgoeshere")),
+        query(doc(db, "AIchat", "user.email")),
         orderBy("timeStamp", "desc")
       ),
     (snapshot) => {
@@ -113,16 +113,19 @@ export const AI = () => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={Styles.container}>
             <FlatList
-              data={DATA}
+              data={prevMsgs}
               keyExtractor={(item) => item.id}
               style={Styles.messageList}
               inverted={-1}
               renderItem={({ item }) => (
                 <View style={Styles.container}>
-                  <SenderMessage message={DATA.title} time={"thursday"} />
+                  <SenderMessage
+                    message={prevMsgs.usermessage}
+                    time={prevMsgs.timestamp}
+                  />
                   <ReceiverMessage
-                    message={DATA.title}
-                    time={"thursday"}
+                    message={prevMsgs.AImessage}
+                    time={prevMsgs.timestamp}
                   />
                 </View>
               )}

@@ -12,10 +12,10 @@ export const SenderMessage = ({ key, message, time }) => {
       <View
         style={[Styles.messageView, { backgroundColor: colors.foreground }]}
       >
-        <Text style={[Styles.text, { color: colors.white }]}>{message}</Text>
+        <Text style={[Styles.text, { color: colors.white }]}>Lorem ipsum est dolor</Text>
       </View>
       <View style={Styles.timeTextView}>
-       
+
         <Text style={[Styles.timeText, { color: colors.iconGray }]}>{time}</Text>
       </View>
     </View>
