@@ -46,8 +46,7 @@ export const AI = () => {
   );
 
   const [input, setInput] = useState(null);
-  const [message, setMessage] = useState(null);
-  const [userMsg, setUserMsg] = useState(false);
+  const [prevMsgs, setPrevMsgs] = useState(false);
 
   console.log(input);
 
@@ -62,24 +61,33 @@ export const AI = () => {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: input }],
     });
-    setMessage(completion.data.choices[0].message.content);
+ 
 
-    const storeAIandUserMessage = await setDoc(doc(db, "AIchat", "useremailgoeshere"), {
-      user: "useremailgoeshere",
-      usermessage: input,
-      AImessage: message,
-      timestamp: serverTimestamp(),
-    });
+    const storeAIandUserMessage = await setDoc(
+      doc(db, "AIchat", "useremailgoeshere"),
+      {
+        user: "useremailgoeshere",
+        usermessage: input,
+        AImessage: completion?.data?.choices[0]?.message.content,
+        timestamp: serverTimestamp(),
+      }
+    );
 
-    
     await Promise.all([completion, storeAIandUserMessage])
       .then(setInput(""))
       .catch((error) => console.log(error));
   };
 
-  useEffect(() => onSnapShot(doc(db, "AIchat","useremailgoeshere"),()=>{
-    
-  }));
+  useEffect(() =>
+    onSnapShot(doc(db, "AIchat", "useremailgoeshere"), (snapshot) => {
+      setPrevMsgs(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
+    })
+  );
 
   return (
     <ImageBackground
@@ -102,8 +110,8 @@ export const AI = () => {
               inverted={-1}
               renderItem={({ item }) => (
                 <View style={Styles.container}>
-                  <SenderMessage message={input?.length > 0 ? input : null} />
-                  <ReceiverMessage message={"ChatGPT here!"} />
+                  <SenderMessage message={prevMsgs} />
+                  <ReceiverMessage message={prevMsgs} />
                 </View>
               )}
             />
