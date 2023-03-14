@@ -21,7 +21,7 @@ export const AI = () => {
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
       title:
-        "Lorem incididunt aute excepteur consectetur voluptate. Exercitation sunt amet mollit eu ut laborum. Nulla minim ut laboris aliqua dolore in deserunt ex. Qui quis velit non commodo.Cillum ad aliquip excepteur velit aliquip ea duis in veniam irure quis. Laborum consequat do adipisicing nisi adipisicing incididunt eiusmod mollit amet pariatur anim. Cupidatat exercitation dolor cillum est dolor. Est mollit eu voluptate officia fugiat ad exercitation adipisicing minim ut. Sit fugiat labore occaecat laborum ullamco ipsum aliqua proident. Veniam aliquip ut exercitation qui exercitation in excepteur consectetur enim. Ullamco velit id ipsum sint cupidatat culpa sint Ex Lorem laboris et elit deserunt laboris nostrud nostrud proident laborum. Tempor velit laborum consectetur exercitation ipsum minim nostrud. Laboris voluptate exercitation labore adipisicing consectetur anim excepteur. Aliqua cillum eu duis occaecat ad tempor fugiat proident. Veniam fugiat tempor elit ullamco officia enim duis ullamco cillum id eu consequat quis. Do occaecat dolore magna labore et id pariatur cillum ad exercitation incididunt dolore fugiat. Deserunt ea occaecat magna reprehenderit.Amet fugiat laboris commodo aliqua ipsum in dolore pariatur mollit sint aute excepteur esse. Dolor reprehenderit eiusmod esse in occaecat nostrud velit ex veniam duis qui ea est mollit. Sint enim incididunt quis exercitation magna officia do occaecat occaecat incididunt adipisicing laboris. Incididunt duis consectetur non voluptate labore ullamco in aute laborum mollit dolor excepteur est. Adipisicing ut commodo nostrud ut qui officia enim aliquip consequat duis id. Quis nostrud ex minim est exercitation culpa officia elit id ullamco reprehenderit id cupidatat id",
+        "Lorem incididunt aute excepteur consectetur voluptate.",
     },
   ];
 
@@ -49,14 +49,14 @@ export const AI = () => {
             keyExtractor={(item) => item.id}
             style={Styles.messageList}
             inverted={-1}
-            renderItem={({ item }) => <SenderMessage message={item.title} />}
+            renderItem={({ item }) => <ReceiverMessage message={item.title} />}
           />
         </TouchableWithoutFeedback>
 
         <View style={Styles.inputView}>
           <TextInput
             style={Styles.messageInput}
-            placeholder="Send a message..."
+            placeholder="Send a message to AI..."
           />
           <MaterialCommunityIcons color="#FF5864" size={30} name="send" />
         </View>

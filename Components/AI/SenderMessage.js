@@ -19,11 +19,11 @@ const Styles = StyleSheet.create({
     borderTopEndRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 3,
-    marginVertical: 2,
+    marginVertical: 4,
     marginHorizontal: 4,
     alignSelf: "flex-start",
     marginLeft: "auto",
-    maxWidth:Dimensions.get("Screen").width*0.4,
+    maxWidth:Dimensions.get("screen").width*0.6,
   },
   text: {
    fontSize:12

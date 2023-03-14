@@ -1,28 +1,34 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, Image ,Dimensions} from "react-native";
+import React, { useContext } from "react";
+import { GlobalContext } from "../../Services/Context/Context";
 
 export const ReceiverMessage = ({ key, message }) => {
+
+  const {
+    theme: { colors },
+  } = useContext(GlobalContext);
+
   return (
-    <View style={Styles.messageView}>
+    <View style={[Styles.messageView, { backgroundColor: colors.white }]}>
       <Image style={Styles.image} source={{ uri: message.photoURL }} />
-      <Text style={Styles.text}>{message.message}</Text>
+      <Text style={[Styles.text,{color:colors.black}]}>{message}</Text>
     </View>
   );
 };
 
 const Styles = StyleSheet.create({
   messageView: {
-    backgroundColor: "purple",
-    borderTopEndRadius: 5,
+    borderBottomEndRadius: 5,
     paddingHorizontal: 5,
     paddingVertical: 3,
-    marginVertical: 2,
+    marginVertical: 4,
     marginHorizontal: 4,
     alignSelf: "flex-start",
-    marginLeft: "auto",
+    marginRight: "auto",
+    maxWidth:Dimensions.get("screen").width*0.6,
   },
   text: {
-    color: "#fff",
+    fontSize:12
   },
   image: {
     height: 12,
