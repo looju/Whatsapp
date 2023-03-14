@@ -51,12 +51,18 @@ export const AI = () => {
     });
     setMessage(completion.data.choices[0].message.content);
 
-    const storeMessage = await setDoc(doc(db, "AIchat", "AIchat"), {
+    const storeAIMessage = await setDoc(doc(db, "AIchat", "AIchatMsg"), {
       timestamp: serverTimestamp(),
-      message: input,
+      AImessage: message,
     });
 
-    await Promise.all([completion, storeMessage])
+    const storeUserMessage=await setDoc(doc(db,"AIchat","useremailgoeshere"),{
+      usermessage:input,
+      timestamp: serverTimestamp(),
+      user:"useremailgoeshere"
+    })
+
+    await Promise.all([completion, storeAIMessage, storeUserMessage])
       .then(setInput(""))
       .catch((error) => console.log(error));
   };
@@ -82,7 +88,7 @@ export const AI = () => {
             renderItem={({ item }) => (
               <SenderMessage message={input?.length > 0 ? input : null} />
             )}
-            
+
           />
         </TouchableWithoutFeedback>
 
