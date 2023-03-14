@@ -1,5 +1,6 @@
+import "react-native-url-polyfill/auto";
 import "react-native-gesture-handler";
-import { Text, View, LogBox } from "react-native";
+import { Text, View } from "react-native";
 import { useAssets } from "expo-asset";
 import { ActivityIndicator } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
@@ -36,7 +37,7 @@ function App() {
     <NavigationContainer>
       {!currentUser ? (
         // <SignInNav />
-        <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
             name="Home"
             component={HomeNav}

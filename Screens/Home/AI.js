@@ -14,8 +14,8 @@ import React, { useEffect, useState } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ReceiverMessage } from "./../../Components/AI/ReceiverMessage";
 import { SenderMessage } from "./../../Components/AI/SenderMessage";
-import { doc, setDoc } from "firebase/firestore";
-import { db, auth, serverTimeStamp } from "./../../Config/Firebase";
+import { doc, setDoc, addDoc, serverTimestamp } from "firebase/firestore";
+import { db, auth } from "./../../Config/Firebase";
 import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_KEY } from "@env";
 
@@ -34,27 +34,31 @@ export const AI = () => {
   );
 
   const [input, setInput] = useState(null);
+  const [message, setMessage] = useState(null);
 
-  const handleSend = async (sendMessage) => {
+  console.log(input);
+
+  const handleSend = async () => {
     const user = auth.currentUser;
     const configuration = new Configuration({
       apiKey: OPENAI_KEY,
     });
     const openai = new OpenAIApi(configuration);
 
-    await Promise.all([
-      setDoc(doc(db, "AIchat", user.email), {
-        email: user.email,
-        timestamp: serverTimeStamp(),
-        message: sendMessage,
-      }),
-      openai
-        .createChatCompletion({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: sendMessage }],
-        })
-        .then((response) => console.log(response)),
-    ]);
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: input }],
+    });
+    setMessage(completion.data.choices[0].message.content);
+
+    const storeMessage = await setDoc(doc(db, "AIchat", "AIchat"), {
+      timestamp: serverTimestamp(),
+      message: input,
+    });
+
+    await Promise.all([completion, storeMessage])
+      .then(setInput(""))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -75,7 +79,10 @@ export const AI = () => {
             keyExtractor={(item) => item.id}
             style={Styles.messageList}
             inverted={-1}
-            renderItem={({ item }) => <ReceiverMessage message={item.title} />}
+            renderItem={({ item }) => (
+              <SenderMessage message={input?.length > 0 ? input : null} />
+            )}
+            
           />
         </TouchableWithoutFeedback>
 
@@ -84,8 +91,15 @@ export const AI = () => {
             style={Styles.messageInput}
             placeholder="Send a message to AI..."
             value={input}
+            onChangeText={(text) => setInput(text)}
+            onSubmitEditing={() => handleSend()}
           />
-          <MaterialCommunityIcons color="#FF5864" size={30} name="send" />
+          <MaterialCommunityIcons
+            color="#FF5864"
+            size={30}
+            name="send"
+            onPress={() => handleSend()}
+          />
         </View>
       </KeyboardAvoidingView>
     </ImageBackground>
@@ -113,3 +127,9 @@ const Styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+// setDoc(doc(db, "AIchat", user.email), {
+//   email: user.email,
+//   timestamp: serverTimeStamp(),
+//   message: input,
+// }),
