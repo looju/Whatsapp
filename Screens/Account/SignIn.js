@@ -36,7 +36,7 @@ export const SignIn = () => {
         Welcome to whatsapp
       </Text>
       <Image
-        source={require("../assets/welcomeimg.jpg")}
+        source={require("../../assets/welcomeimg.jpg")}
         style={Styles.image}
         resizeMode="cover"
       />
