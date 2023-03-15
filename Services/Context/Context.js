@@ -3,6 +3,6 @@ import { theme } from "../../Utilities/Utilities";
 
 export const GlobalContext = createContext({
   theme,
-  room: [],
+  rooms: [],
   setRooms: () => {}
 });

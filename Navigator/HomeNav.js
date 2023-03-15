@@ -37,7 +37,7 @@ export const HomeNav = () => {
           } else {
             return (
               <Text style={{ color: colors.white }}>
-                {route.name.toLocaleUpperCase()}
+                {route.name}
               </Text>
             );
           }

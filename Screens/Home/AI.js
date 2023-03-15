@@ -81,6 +81,8 @@ export const AI = () => {
       .catch((error) => console.log(error));
   };
 
+
+  
   useEffect(
     () =>
       onSnapshot(
@@ -97,6 +99,9 @@ export const AI = () => {
     },
     [db]
   );
+
+
+  const displayTime=prevMsgs?.timestamp?.toDate()
 
   return (
     <ImageBackground
