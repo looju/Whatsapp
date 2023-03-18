@@ -32,22 +32,7 @@ export const AI = () => {
   const {
     theme: { colors },
   } = useContext(GlobalContext);
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "Lorem incididunt aute excepteur consectetur voluptate.",
-    },
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "Lorem incididunt aute excepteur  voluptate.",
-    },
-  ];
-
-  const Item = ({ title }) => (
-    <View style={Styles.item}>
-      <Text style={Styles.title}>{title}</Text>
-    </View>
-  );
+ 
 
   const [input, setInput] = useState(null);
   const [prevMsgs, setPrevMsgs] = useState(false);

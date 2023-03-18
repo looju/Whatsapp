@@ -4,9 +4,10 @@ import {
   signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
+  connectAuthEmulator,
 } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, initializeFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA2kLJzfkhc7Y2q3BAA2SB_xWm8Bg5zUvE",
@@ -20,7 +21,12 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
-export const db = getFirestore(app);
+// export const db = getFirestore(app);
+export const db = initializeFirestore(app, {
+ 
+  experimentalAutoDetectLongPolling:true
+});
+
 
 export function signIn(email, password) {
   return signInWithEmailAndPassword(auth, email, password);

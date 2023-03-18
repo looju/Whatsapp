@@ -33,16 +33,19 @@ function App() {
     return () => unSubscribe();
   }, []);
 
+  console.log(currentUser)
+  // <SignInNav />
+
   return (
     <NavigationContainer>
       {!currentUser ? (
-        // <SignInNav />
+         
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen
-            name="Home"
-            component={HomeNav}
+           <Stack.Screen
+             name="Home"
+             component={HomeNav}
             options={{ headerTitle: "Whatsapp" }}
-          />
+         />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator

@@ -6,8 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { connectAuthEmulator} from "firebase/auth"
 import React, { useContext, useState } from "react";
-import { signUp, signIn } from "../../Config/Firebase";
+import { signUp, signIn, auth } from "../../Config/Firebase";
 import { Button } from "react-native-paper";
 import { GlobalContext } from "../../Services/Context/Context";
 
@@ -26,7 +27,7 @@ export const SignIn = () => {
       await signUp(email, password).catch((error) => setErrorMsg(error.code));
     }
     if (mode === "SignIn") {
-      await signIn(email, password).catch((error) => setErrorMsg(error.code));
+      await signIn(email, password).then(console.log("successful")).catch((error) => setErrorMsg(error.code));
     }
   };
 
@@ -88,7 +89,7 @@ export const SignIn = () => {
           textColor={colors.white}
           style={{ width: 200 }}
           onPress={() => handlePress()}
-          // disabled={!password && !email}
+          disabled={!password || !email}
         >
           {mode == "SignUp" ? "Sign up" : "Login in"}
         </Button>
