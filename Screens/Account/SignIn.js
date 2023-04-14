@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { connectAuthEmulator} from "firebase/auth"
+import { connectAuthEmulator } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { signUp, signIn, auth } from "../../Config/Firebase";
 import { Button } from "react-native-paper";
@@ -82,7 +82,7 @@ export const SignIn = () => {
       )}
       <View style={Styles.buttonView}>
         <Button
-          accessibilityLabel="Sign Up"
+          accessibilityLabel="Sign Up and Login button"
           dark={true}
           mode="contained"
           buttonColor={!password && !email ? colors.iconGray : colors.secondary}
@@ -91,13 +91,13 @@ export const SignIn = () => {
           onPress={() => handlePress()}
           disabled={!password || !email}
         >
-          {mode == "SignUp" ? "Sign up" : "Login in"}
+          {mode == "SignUp" ? "Sign up" : "Login"}
         </Button>
       </View>
       <TouchableOpacity
         style={Styles.opacity}
         onPress={() =>
-          mode == "SignUp" ? setMode("SingIn") : setMode("SignUp")
+          mode == "SignUp" ? setMode("SignIn") : setMode("SignUp")
         }
       >
         <Text style={{ color: colors.white }}>

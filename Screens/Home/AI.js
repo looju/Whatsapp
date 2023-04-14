@@ -168,8 +168,3 @@ const Styles = StyleSheet.create({
   },
 });
 
-// setDoc(doc(db, "AIchat", user.email), {
-//   email: user.email,
-//   timestamp: serverTimeStamp(),
-//   message: input,
-// }),
