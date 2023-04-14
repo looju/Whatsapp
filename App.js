@@ -28,25 +28,19 @@ function App() {
       setLoading(false);
       if (user) {
         setCurrentUser(user);
+        console.log(currentUser)
+ 
       }
     });
     return () => unSubscribe();
   }, []);
 
-  console.log(currentUser)
-  // <SignInNav />
+  
 
   return (
     <NavigationContainer>
       {!currentUser ? (
-         
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-           <Stack.Screen
-             name="Home"
-             component={HomeNav}
-            options={{ headerTitle: "Whatsapp" }}
-         />
-        </Stack.Navigator>
+         <SignInNav />
       ) : (
         <Stack.Navigator
           screenOptions={{

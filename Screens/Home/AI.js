@@ -33,14 +33,14 @@ export const AI = () => {
     theme: { colors },
   } = useContext(GlobalContext);
  
-
+  const user = auth.currentUser;
   const [input, setInput] = useState(null);
   const [prevMsgs, setPrevMsgs] = useState(false);
 
   console.log(input);
 
   const handleSend = async () => {
-    const user = auth.currentUser;
+  
     const configuration = new Configuration({
       apiKey: OPENAI_KEY,
     });
@@ -52,9 +52,9 @@ export const AI = () => {
     });
 
     const storeAIandUserMessage = await setDoc(
-      doc(db, "AIchat", "user.email"),
+      doc(db, "AIchat", user.email),
       {
-        user: "user.email",
+        user: user.email,
         usermessage: input,
         AImessage: completion?.data?.choices[0]?.message.content,
         timestamp: serverTimestamp(),
@@ -71,7 +71,7 @@ export const AI = () => {
   useEffect(
     () =>
       onSnapshot(
-        query(doc(db, "AIchat", "user.email")),
+        query(doc(db, "AIchat", user.email)),
         orderBy("timeStamp", "desc")
       ),
     (snapshot) => {
@@ -82,7 +82,7 @@ export const AI = () => {
         }))
       );
     },
-    [db]
+    [db,user]
   );
 
 
@@ -156,9 +156,12 @@ const Styles = StyleSheet.create({
     paddingVertical: 3,
     borderColor: "#808080",
     backgroundColor: "#fff",
+    height:60,
+    
   },
   messageInput: {
     height: 20,
+    width:"100%"
   },
   messageList: {
     marginVertical: 10,

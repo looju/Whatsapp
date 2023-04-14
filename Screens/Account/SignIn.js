@@ -27,7 +27,7 @@ export const SignIn = () => {
       await signUp(email, password).catch((error) => setErrorMsg(error.code));
     }
     if (mode === "SignIn") {
-      await signIn(email, password).then(console.log("successful")).catch((error) => setErrorMsg(error.code));
+      await signIn(email, password).catch((error) => setErrorMsg(error.code));
     }
   };
 
