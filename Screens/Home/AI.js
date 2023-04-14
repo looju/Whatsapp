@@ -23,6 +23,10 @@ import {
   onSnapshot,
   query,
   orderBy,
+  startAt,
+  getDocs,
+  collection,
+  getDoc,
 } from "firebase/firestore";
 import { db, auth } from "./../../Config/Firebase";
 import { Configuration, OpenAIApi } from "openai";
@@ -32,7 +36,7 @@ export const AI = () => {
   const {
     theme: { colors },
   } = useContext(GlobalContext);
- 
+
   const user = auth.currentUser;
   const [input, setInput] = useState(null);
   const [prevMsgs, setPrevMsgs] = useState(false);
@@ -40,7 +44,6 @@ export const AI = () => {
   console.log(input);
 
   const handleSend = async () => {
-  
     const configuration = new Configuration({
       apiKey: OPENAI_KEY,
     });
@@ -51,42 +54,33 @@ export const AI = () => {
       messages: [{ role: "user", content: input }],
     });
 
-    const storeAIandUserMessage = await setDoc(
-      doc(db, "AIchat", user.email),
-      {
-        user: user.email,
-        usermessage: input,
-        AImessage: completion?.data?.choices[0]?.message.content,
-        timestamp: serverTimestamp(),
-      }
-    );
+    const storeAIandUserMessage = await setDoc(doc(db, "AIchat", user.email), {
+      user: user.email,
+      usermessage: input,
+      AImessage: completion?.data?.choices[0]?.message.content,
+      timestamp: serverTimestamp(),
+    });
 
     await Promise.all([completion, storeAIandUserMessage])
       .then(setInput(""))
+      .then(console.log("done"))
       .catch((error) => console.log(error));
   };
 
+  const querySnapshot = async () => {
+    const snapshot = await getDoc(collection(doc(db, "AIchat", user.email)));
+    if (snapshot.exists()) {
+      snapshot.forEach((doc) => {
+        setPrevMsgs(doc.data());
+      });
+    } else if (!snapshot.exists()) {
+      console.log("snapshot doesn't exist at AI ");
+    }
+  };
 
-  
-  useEffect(
-    () =>
-      onSnapshot(
-        query(doc(db, "AIchat", user.email)),
-        orderBy("timeStamp", "desc")
-      ),
-    (snapshot) => {
-      setPrevMsgs(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-      );
-    },
-    [db,user]
-  );
+  useEffect(() => querySnapshot[(db, user)]);
 
-
-  const displayTime=prevMsgs?.timestamp?.toDate()
+  console.log(prevMsgs);
 
   return (
     <ImageBackground
@@ -156,15 +150,13 @@ const Styles = StyleSheet.create({
     paddingVertical: 3,
     borderColor: "#808080",
     backgroundColor: "#fff",
-    height:60,
-    
+    height: 60,
   },
   messageInput: {
     height: 20,
-    width:"100%"
+    width: "90%",
   },
   messageList: {
     marginVertical: 10,
   },
 });
-
