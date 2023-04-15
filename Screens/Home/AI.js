@@ -7,7 +7,7 @@ import {
   Keyboard,
   Platform,
   TouchableWithoutFeedback,
-  FlatList,
+  ScrollView,
   ImageBackground,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
@@ -67,6 +67,12 @@ export const AI = () => {
       .catch((error) => console.log(error));
   };
 
+  const timeStampToDate = (value) => {
+    var t = new Date(1970, 0, 1);
+    t.setSeconds(value);
+    return t
+  };
+
   useEffect(
     () =>
       onSnapshot(doc(db, "AIchat", user.email), (snapshot) => {
@@ -74,8 +80,6 @@ export const AI = () => {
       }),
     [db]
   );
-
-  console.log(prevMsgs);
 
   return (
     <ImageBackground
@@ -90,13 +94,16 @@ export const AI = () => {
         keyboardVerticalOffset={10}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={Styles.container}>
-            <SenderMessage message={prevMsgs?.usermessage}  time={prevMsgs?.timestamp?.seconds}/>
+          <ScrollView style={Styles.container}>
+            <SenderMessage
+              message={prevMsgs?.usermessage}
+              time={prevMsgs?.timestamp?.seconds}
+            />
             <AiMessage
               message={prevMsgs?.AImessage}
               time={prevMsgs?.timestamp?.seconds}
             />
-          </View>
+          </ScrollView>
         </TouchableWithoutFeedback>
 
         <View style={Styles.inputView}>

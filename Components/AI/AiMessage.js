@@ -14,9 +14,9 @@ export const AiMessage = ({ key, message, time }) => {
     >
       <Text style={[Styles.text, { color: colors.black }]}>{message}</Text>
     </View>
-    <View style={Styles.timeTextView}>
+    <View style={[Styles.timeTextView,{color:colors.foreground}]}>
      
-      <Text style={[Styles.timeText, { color: colors.iconGray }]}>{time}</Text>
+      <Text style={[Styles.timeText, { color: colors.white }]}>{time}</Text>
     </View>
   </View>
   );
