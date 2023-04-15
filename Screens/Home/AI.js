@@ -84,7 +84,6 @@ export const AI = () => {
       style={Styles.container}
       blurRadius={1}
     >
-      <SenderMessage message={input} time={prevMsgs.timestamp?.seconds}/>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={Styles.container}
@@ -92,19 +91,10 @@ export const AI = () => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={Styles.container}>
-            <FlatList
-              data={prevMsgs}
-              keyExtractor={(item) => item.id}
-              style={Styles.messageList}
-              inverted={-1}
-              renderItem={({ item }) => (
-                <View style={Styles.container}>
-                  <AiMessage
-                    message={item.AImessage}
-                    time={item.timestamp}
-                  />
-                </View>
-              )}
+            <SenderMessage message={prevMsgs?.usermessage}  time={prevMsgs?.timestamp?.seconds}/>
+            <AiMessage
+              message={prevMsgs?.AImessage}
+              time={prevMsgs?.timestamp?.seconds}
             />
           </View>
         </TouchableWithoutFeedback>
