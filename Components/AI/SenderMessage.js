@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import React, { useContext } from "react";
 import { GlobalContext } from "../../Services/Context/Context";
 
-export const SenderMessage = ({ key, message, time }) => {
+export const SenderMessage = ({ message, time }) => {
   const {
     theme: { colors },
   } = useContext(GlobalContext);
@@ -12,11 +12,11 @@ export const SenderMessage = ({ key, message, time }) => {
       <View
         style={[Styles.messageView, { backgroundColor: colors.foreground }]}
       >
-        <Text style={[Styles.text, { color: colors.white }]}>Lorem ipsum est dolor</Text>
+        <Text style={[Styles.text, { color: colors.white }]}>{message}</Text>
       </View>
       <View style={Styles.timeTextView}>
 
-        <Text style={[Styles.timeText, { color: colors.iconGray }]}>{time}</Text>
+        <Text style={[Styles.timeText, { color: colors.iconGray }]}>{time || Date.now()}</Text>
       </View>
     </View>
   );

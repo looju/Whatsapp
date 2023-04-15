@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { ReceiverMessage } from "./../../Components/AI/ReceiverMessage";
+import { AiMessage } from "./../../Components/AI/AiMessage";
 import { SenderMessage } from "./../../Components/AI/SenderMessage";
 import { GlobalContext } from "./../../Services/Context/Context";
 import {
@@ -39,7 +39,7 @@ export const AI = () => {
 
   const user = auth.currentUser;
   const [input, setInput] = useState(null);
-  const [prevMsgs, setPrevMsgs] = useState(false);
+  const [prevMsgs, setPrevMsgs] = useState("");
 
   console.log(input);
 
@@ -67,18 +67,13 @@ export const AI = () => {
       .catch((error) => console.log(error));
   };
 
-  const querySnapshot = async () => {
-    const snapshot = await getDoc(collection(doc(db, "AIchat", user.email)));
-    if (snapshot.exists()) {
-      snapshot.forEach((doc) => {
-        setPrevMsgs(doc.data());
-      });
-    } else if (!snapshot.exists()) {
-      console.log("snapshot doesn't exist at AI ");
-    }
-  };
-
-  useEffect(() => querySnapshot[(db, user)]);
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "AIchat", user.email), (snapshot) => {
+        setPrevMsgs(snapshot.data());
+      }),
+    [db]
+  );
 
   console.log(prevMsgs);
 
@@ -89,6 +84,7 @@ export const AI = () => {
       style={Styles.container}
       blurRadius={1}
     >
+      <SenderMessage message={input} time={prevMsgs.timestamp?.seconds}/>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={Styles.container}
@@ -103,13 +99,9 @@ export const AI = () => {
               inverted={-1}
               renderItem={({ item }) => (
                 <View style={Styles.container}>
-                  <SenderMessage
-                    message={prevMsgs.usermessage}
-                    time={prevMsgs.timestamp}
-                  />
-                  <ReceiverMessage
-                    message={prevMsgs.AImessage}
-                    time={prevMsgs.timestamp}
+                  <AiMessage
+                    message={item.AImessage}
+                    time={item.timestamp}
                   />
                 </View>
               )}

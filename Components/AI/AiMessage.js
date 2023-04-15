@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React, { useContext } from "react";
 import { GlobalContext } from "../../Services/Context/Context";
 
-export const ReceiverMessage = ({ key, message, time }) => {
+export const AiMessage = ({ key, message, time }) => {
   const {
     theme: { colors },
   } = useContext(GlobalContext);
@@ -12,7 +12,7 @@ export const ReceiverMessage = ({ key, message, time }) => {
     <View
       style={[Styles.messageView, { backgroundColor: colors.white}]}
     >
-      <Text style={[Styles.text, { color: colors.black }]}>{message.title}</Text>
+      <Text style={[Styles.text, { color: colors.black }]}>{message}</Text>
     </View>
     <View style={Styles.timeTextView}>
      
