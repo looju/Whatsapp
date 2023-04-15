@@ -14,9 +14,9 @@ export const SenderMessage = ({ message, time }) => {
       >
         <Text style={[Styles.text, { color: colors.white }]}>{message}</Text>
       </View>
-      <View style={Styles.timeTextView}>
-        <Text style={[Styles.timeText, { color: colors.foreground}]}>
-          {time || Date.now()}
+      <View style={[Styles.timeTextView,{backgroundColor:colors.black}]}>
+        <Text style={[Styles.timeText, { color: colors.white}]}>
+          {time}
         </Text>
       </View>
     </View>
@@ -40,15 +40,12 @@ const Styles = StyleSheet.create({
     paddingHorizontal: 2,
     alignSelf: "flex-start",
     marginLeft: "auto",
-    backgroundColor:"#fff",
-    width:100,
-    alignItems:"center",
+    maxWidth:220,
   },
   text: {
     fontSize: 13,
   },
   timeText: {
-    fontWeight: "200",
-    fontSize: 10,
+    fontSize: 12,
   },
 });

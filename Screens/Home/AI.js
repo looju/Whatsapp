@@ -70,7 +70,7 @@ export const AI = () => {
   const timeStampToDate = (value) => {
     var t = new Date(1970, 0, 1);
     t.setSeconds(value);
-    return t
+    return t.toString()
   };
 
   useEffect(
@@ -97,11 +97,11 @@ export const AI = () => {
           <ScrollView style={Styles.container}>
             <SenderMessage
               message={prevMsgs?.usermessage}
-              time={prevMsgs?.timestamp?.seconds}
+              time={timeStampToDate(prevMsgs.timestamp?.seconds)}
             />
             <AiMessage
               message={prevMsgs?.AImessage}
-              time={prevMsgs?.timestamp?.seconds}
+              time={timeStampToDate(prevMsgs.timestamp?.seconds)}
             />
           </ScrollView>
         </TouchableWithoutFeedback>

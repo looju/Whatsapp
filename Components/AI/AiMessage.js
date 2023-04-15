@@ -9,16 +9,13 @@ export const AiMessage = ({ key, message, time }) => {
 
   return (
     <View>
-    <View
-      style={[Styles.messageView, { backgroundColor: colors.white}]}
-    >
-      <Text style={[Styles.text, { color: colors.black }]}>{message}</Text>
+      <View style={[Styles.messageView, { backgroundColor: colors.white }]}>
+        <Text style={[Styles.text, { color: colors.black }]}>{message}</Text>
+      </View>
+      <View style={[Styles.timeTextView, { color: colors.foreground }]}>
+        <Text style={[Styles.timeText, { color: colors.white }]}>{time}</Text>
+      </View>
     </View>
-    <View style={[Styles.timeTextView,{color:colors.foreground}]}>
-     
-      <Text style={[Styles.timeText, { color: colors.white }]}>{time}</Text>
-    </View>
-  </View>
   );
 };
 
@@ -50,5 +47,8 @@ const Styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     left: 14,
+  },
+  timeText: {
+    fontSize: 12,
   },
 });
