@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React, { useContext } from "react";
+import TypeWriter from "react-native-typewriter";
 import { GlobalContext } from "../../Services/Context/Context";
 
 export const AiMessage = ({ key, message, time }) => {
@@ -10,7 +11,9 @@ export const AiMessage = ({ key, message, time }) => {
   return (
     <View>
       <View style={[Styles.messageView, { backgroundColor: colors.white }]}>
-        <Text style={[Styles.text, { color: colors.black }]}>{message}</Text>
+        <TypeWriter style={[Styles.text, { color: colors.black }]} typing={0.5}>
+          {message}
+        </TypeWriter>
       </View>
       <View style={[Styles.timeTextView, { color: colors.foreground }]}>
         <Text style={[Styles.timeText, { color: colors.white }]}>{time}</Text>
