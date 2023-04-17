@@ -46,6 +46,7 @@ export const HomeNav = () => {
         tabBarLabelStyle: { color: colors.white },
         tabBarIndicatorStyle: { backgroundColor: colors.white },
         tabBarStyle: { backgroundColor: colors.foreground },
+        
       })}
       initialRouteName="Chat"
     >

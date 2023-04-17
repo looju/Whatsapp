@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from "react";
 import { db, auth } from "../../Config/Firebase";
 import { query, collection, where, onSnapshot, doc } from "firebase/firestore";
 import { GlobalContext } from "./../../Services/Context/Context";
+import { ContactFloatingIcon } from "../../Components/General/ContactFloatingIcon";
 
 export const Chat = () => {
   const { currentUser } = auth;
@@ -33,6 +34,7 @@ export const Chat = () => {
   return (
     <View style={Styles.container}>
       <Text>Chat</Text>
+      <ContactFloatingIcon/>
     </View>
   );
 };

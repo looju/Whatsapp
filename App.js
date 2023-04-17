@@ -62,7 +62,7 @@ function App() {
           <Stack.Screen
             name="Home"
             component={HomeNav}
-            options={{ headerTitle: "Whatsapp" }}
+            options={{ headerTitle: "Whatsapp", headerTitleStyle:{color:colors.white}}}
           />
         </Stack.Navigator>
       )}
