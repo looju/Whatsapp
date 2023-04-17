@@ -11,7 +11,7 @@ export const AiMessage = ({ key, message, time }) => {
   return (
     <View>
       <View style={[Styles.messageView, { backgroundColor: colors.white }]}>
-        <TypeWriter style={[Styles.text, { color: colors.black }]} typing={0.5}>
+        <TypeWriter style={[Styles.text, { color: colors.black }]} typing={1} minDelay={5}>
           {message}
         </TypeWriter>
       </View>
