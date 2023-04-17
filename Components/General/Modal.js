@@ -7,7 +7,7 @@ import {
   View,
   Dimensions,
 } from "react-native";
-import { GlobalContext } from "../Services/Context/Context";
+import { GlobalContext } from "../../Services/Context/Context";
 
 export const ModalComponent = ({ message, buttonMessage }) => {
   const {

@@ -21,7 +21,7 @@ import {
   UploadImage,
 } from "../../Functions/Functions";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { ModalComponent } from "../../Components/Modal";
+import { ModalComponent } from "../../Components/General/Modal";
 
 export const Profile = ({ navigation }) => {
   const {
