@@ -10,7 +10,8 @@ export const UseContacts = () => {
       contactName:
         contact.firstName && contact.lastName
           ? `${contact.firstName} ${contact.lastName}`
-          : contact.firstName
+          : contact.firstName,
+      email: contact.emails[0].email,
     };
   };
 
@@ -34,10 +35,13 @@ export const UseContacts = () => {
                   value.emails[0] &&
                   value.emails[0].email
               )
-              .map(mapContactToUser)
+              .map(mapContactToUser(data))
           );
         }
       }
     })();
   }, []);
+
+
+  return contacts
 };
