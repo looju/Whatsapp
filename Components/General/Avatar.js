@@ -1,12 +1,19 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { Image } from "react-native";
+import React from "react";
 
-const Avatar = () => {
+export const Avatar = ({ size, user }) => {
   return (
-    <View>
-      <Text>Avatar</Text>
-    </View>
-  )
-}
-
-export default Avatar
+    <Image
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size,
+      }}
+      source={
+        user.photoURL
+          ? { uri: user.photoURL }
+          : require("../../assets/usericon.png")
+      }
+    />
+  );
+};

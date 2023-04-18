@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { GlobalContext } from "./../../Services/Context/Context";
 import {Grid,Col,Row} from "react-native-easy-grid"
+import { Avatar } from "./Avatar";
+
 
 export const ListItem = ({ type, description, user, room, image, style }) => {
   const navigation = useNavigation();
@@ -23,6 +25,7 @@ export const ListItem = ({ type, description, user, room, image, style }) => {
     >
       <Grid style={Styles.grid}>
      <Col style={Styles.col}>
+        <Avatar/>
      </Col>
       </Grid>
 
