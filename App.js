@@ -13,8 +13,7 @@ import { GlobalContext } from "./Services/Context/Context";
 import { ContextWrapper } from "./Services/Context/ContextWrapper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeNav } from "./Navigator/HomeNav";
-import { Contacts } from './Screens/Contacts/Contacts';
-
+import { Contacts } from "./Screens/Contacts/Contacts";
 
 const Stack = createStackNavigator();
 
@@ -30,19 +29,16 @@ function App() {
       setLoading(false);
       if (user) {
         setCurrentUser(user);
-        console.log(currentUser)
- 
+        console.log(currentUser);
       }
     });
     return () => unSubscribe();
   }, []);
 
-  
-
   return (
     <NavigationContainer>
       {!currentUser ? (
-         <SignInNav />
+        <SignInNav />
       ) : (
         <Stack.Navigator
           screenOptions={{
@@ -64,12 +60,19 @@ function App() {
           <Stack.Screen
             name="Home"
             component={HomeNav}
-            options={{ headerTitle: "Whatsapp", headerTitleStyle:{color:colors.white}}}
+            options={{
+              headerTitle: "Whatsapp",
+              headerTitleStyle: { color: colors.white },
+            }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="Contacts"
             component={Contacts}
-            options={{ headerTitle: "Select contacts", headerTitleStyle:{color:colors.white}}}
+            options={{
+              headerTitle: "Select contacts",
+              headerTitleStyle: { color: colors.white },
+              headerBackTitleStyle: { color: colors.white }
+            }}
           />
         </Stack.Navigator>
       )}

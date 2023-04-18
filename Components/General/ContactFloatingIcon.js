@@ -23,7 +23,7 @@ export const ContactFloatingIcon = () => {
         alignItems:"center",
         justifyContent:"center"
       }}
-      onPress={()=>navigation.navigate("contacts")}
+      onPress={()=>navigation.navigate("Contacts")}
     >
       <MaterialCommunityIcons
         name="android-messages"

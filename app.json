@@ -12,6 +12,12 @@
         {
           "photosPermission": "The app requires permission to access your photos."
         }
+      ],
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Allow $(PRODUCT_NAME) to access your contacts."
+        }
       ]
     ],
     "splash": {
