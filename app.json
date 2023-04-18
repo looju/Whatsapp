@@ -16,7 +16,7 @@
       [
         "expo-contacts",
         {
-          "contactsPermission": "Allow $(PRODUCT_NAME) to access your contacts."
+          "contactsPermission": "The app requires permissionto access your contacts."
         }
       ]
     ],
