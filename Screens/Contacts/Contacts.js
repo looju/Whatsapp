@@ -3,12 +3,13 @@ import React from 'react'
 import { UseContacts } from '../../Hooks/UseHooks'
 
 
+
 export const Contacts = () => {
 const contact=UseContacts()
 
   return (
     <View>
-      <Text>Contacts</Text>
+      <Text>{JSON.stringify(contact)}</Text>
     </View>
   )
 }

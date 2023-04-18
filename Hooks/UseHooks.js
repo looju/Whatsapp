@@ -10,18 +10,21 @@ export const UseContacts = () => {
       contactName:
         contact.firstName && contact.lastName
           ? `${contact.firstName} ${contact.lastName}`
-          : contact.firstName,
-      email: contact.emails[0].email,
+          : contact.name,
+      // email: contact.emails[0].email,
     };
   };
 
   useEffect(() => {
     (async () => {
       const { status } = await Contacts.requestPermissionsAsync();
-      if ((status = "denied")) {
-        <ModalComponent message={"Failed permission"} buttonMessage={"OK!"} />;
+      if (status === "denied") {
+        return (
+          <ModalComponent message={"Failed permission"} buttonMessage={"OK!"} />
+        );
       }
-      if ((status = "granted")) {
+
+      if (status === "granted") {
         const { data } = await Contacts.getContactsAsync({
           fields: [Contacts.Fields.Emails],
         });
@@ -29,19 +32,17 @@ export const UseContacts = () => {
           setContacts(
             data
               .filter(
-                (value) =>
-                  value.firstName &&
-                  value.emails &&
-                  value.emails[0] &&
-                  value.emails[0].email
+                (value) => value.firstName && value.lastName && value.name
+                // value.emails &&
+                // value.emails[0] &&
+                // value.emails[0].email
               )
-              .map(mapContactToUser(data))
+              .map(mapContactToUser)
           );
         }
       }
     })();
   }, []);
 
-
-  return contacts
+  return contacts;
 };
