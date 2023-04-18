@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { GlobalContext } from "./../../Services/Context/Context";
+import {Grid,Col,Row} from "react-native-easy-grid"
 
 export const ListItem = ({ type, description, user, room, image, style }) => {
   const navigation = useNavigation();
@@ -20,7 +21,11 @@ export const ListItem = ({ type, description, user, room, image, style }) => {
         })
       }
     >
-      <Text>ListItem</Text>
+      <Grid style={Styles.grid}>
+     <Col style={Styles.col}>
+     </Col>
+      </Grid>
+
     </TouchableOpacity>
   );
 };
@@ -29,4 +34,12 @@ const Styles = StyleSheet.create({
   container: {
     height: 80,
   },
+  grid:{
+    maxHeight:80
+  },
+  col:{
+    height:80,
+    alignItems:"center",
+    justifyContent:"center"
+  }
 });
