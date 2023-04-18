@@ -14,6 +14,8 @@ export const Avatar = ({ size, user }) => {
           ? { uri: user.photoURL }
           : require("../../assets/usericon.png")
       }
+      resizeMethod="auto"
+      resizeMode="cover"
     />
   );
 };

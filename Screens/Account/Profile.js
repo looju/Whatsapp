@@ -47,7 +47,7 @@ export const Profile = ({ navigation }) => {
     }
 
     const userData = {
-      displayName,
+      displayName:displayName,
       email: user.email,
     };
     if (photoURL) {
