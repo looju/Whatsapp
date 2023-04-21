@@ -1,13 +1,16 @@
-import { View, Text,StyleSheet} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useContext, useEffect } from "react";
 import { db, auth } from "../../Config/Firebase";
 import { query, collection, where, onSnapshot, doc } from "firebase/firestore";
 import { GlobalContext } from "./../../Services/Context/Context";
 import { ContactFloatingIcon } from "../../Components/General/ContactFloatingIcon";
+import { ListItem } from "../../Components/General/ListItem";
+import { UseContacts } from "../../Hooks/UseHooks";
 
 export const Chat = () => {
   const { currentUser } = auth;
   const { rooms, setRooms } = useContext(GlobalContext);
+  const contact=useContacts()
 
   const chatsQuery = query(
     collection(db, "rooms"),
@@ -24,26 +27,42 @@ export const Chat = () => {
           userB: doc.data.participants.find(
             (p) => p.email !== currentUser.email
           ), // So that user B is the other user possessing a different email
-        }))
-        setRooms(parsedChats)
+        }));
+      setRooms(parsedChats);
     });
 
-    return ()=> unSubscribe()
+    return () => unSubscribe();
   }, []);
+
+  const getUserB = (user, contacts) => {
+  const userContact=contacts.find(contact=>contact.email==user.email)
+  if(userContact && userContact.contactName){
+    return {...user, contactName:userContact.contactName}
+  }
+  return user
+  };
 
   return (
     <View style={Styles.container}>
-      <Text>Chat</Text>
-      <ContactFloatingIcon/>
+      {rooms.map((room) => (
+        <ListItem
+          type="chat"
+          description={room.lastMessage.text}
+          key={room.id}
+          room={room}
+          time={room.lastMessage.createdAt}
+          user={getUserB(chat.userB, contact)}
+        />
+      ))}
+      <ContactFloatingIcon />
     </View>
   );
 };
 
-
-const Styles=StyleSheet.create({
-  container:{
-    flex:1,
-    padding:5,
-    paddingRight:10
-  }
-})
+const Styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 5,
+    paddingRight: 10,
+  },
+});
