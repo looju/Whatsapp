@@ -74,6 +74,11 @@ function App() {
               headerBackTitleStyle: { color: colors.white }
             }}
           />
+          <Stack.Screen
+          name="ChatRoom"
+          componenet={ChatRoom}
+          options={{headerTitle:(props)=><ChatHeader {...props}/>}}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>

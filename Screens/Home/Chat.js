@@ -51,7 +51,7 @@ export const Chat = () => {
           key={room.id}
           room={room}
           time={room.lastMessage.createdAt}
-          user={getUserB(chat.userB, contact)}
+          user={getUserB(room.userB, contact)}
         />
       ))}
       <ContactFloatingIcon />

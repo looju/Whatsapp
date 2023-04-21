@@ -15,7 +15,7 @@ export const ListItem = ({ type, description, user,time, room, image, style }) =
     <TouchableOpacity
       style={[Styles.container, { ...style }]}
       onPress={() =>
-        navigation.navigate("chat", {
+        navigation.navigate("ChatRoom", {
           user: user,
           room: room,
           image: image,
