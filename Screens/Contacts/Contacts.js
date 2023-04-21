@@ -6,10 +6,12 @@ import { GlobalContext } from "./../../Services/Context/Context";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
 import { ListItem } from "../../Components/General/ListItem";
+import { useRoute } from "@react-navigation/native";
 
 export const Contacts = () => {
   const contact = UseContacts();
-  console.log(contact)
+  const route = useRoute();
+  const image = route.params && route.params.image;
 
   const ContactPreview = ({ contact, image }) => {
     const { rooms } = useContext(GlobalContext);
@@ -18,11 +20,11 @@ export const Contacts = () => {
     useEffect(() => {
       const q = query(
         collection(db, "users"),
-        where("email","==", contact.email)
+        where("email", "==", contact.email)
       );
       const unsubscribe = onSnapshot(q, (snapshot) => {
         if (snapshot.docs.length > 0) {
-          const userDoc = snapshot.docs[0].data();  //userDoc only returns an object that contains only contacts
+          const userDoc = snapshot.docs[0].data(); //userDoc only returns an object that contains only contacts
           setUser((prevUser) => ({ ...prevUser, userDoc }));
         }
       });
@@ -47,7 +49,7 @@ export const Contacts = () => {
       style={Styles.flatlist}
       data={contact}
       keyExtractor={(_, i) => i}
-      renderItem={({ item }) => <ContactPreview contact={item} />}
+      renderItem={({ item }) => <ContactPreview contact={item} image={image}/>}
     />
   );
 };

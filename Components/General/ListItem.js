@@ -40,18 +40,22 @@ export const ListItem = ({ type, description, user, room, image, style }) => {
 
 const Styles = StyleSheet.create({
   container: {
-    height: 80,
+    height: 60,
   },
   grid: {
-    maxHeight: 80,
+    maxHeight: 60,
   },
   col: {
     height: 80,
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
+    flex: 0.2,
   },
   col2: {
     marginLeft: 10,
+    flex: 1,
+    height: 80,
+    paddingBottom: 5,
   },
   row: {
     alignItems: "center",
