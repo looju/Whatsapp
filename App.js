@@ -14,6 +14,7 @@ import { ContextWrapper } from "./Services/Context/ContextWrapper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeNav } from "./Navigator/HomeNav";
 import { Contacts } from "./Screens/Contacts/Contacts";
+import { ChatHeader } from "./Components/General/ChatHeader";
 
 const Stack = createStackNavigator();
 
