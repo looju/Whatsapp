@@ -49,9 +49,16 @@ export const Contacts = () => {
 
   return (
     <View style={Styles.container}>
-      <View style={Styles.actInd}>
-        <ActivityIndicator size={20} color={colors.white} />
-      </View>
+      {contact.length == 0 && (
+        <View style={Styles.actInd}>
+          <ActivityIndicator
+            size={20}
+            color={colors.foreground}
+            style={{ position: "absolute", zIndex: 10 }}
+          />
+        </View>
+      )}
+
       <FlatList
         style={Styles.flatlist}
         data={contact}
@@ -65,21 +72,21 @@ export const Contacts = () => {
 };
 
 const Styles = StyleSheet.create({
-  container:{
-    position:"absolute", 
+  container: {
+    position: "absolute",
     flex: 1,
   },
   flatlist: {
     flex: 1,
     padding: 10,
-    position:"absolute"
+    position: "absolute",
   },
   listitem: {
     marginTop: 7,
   },
   actInd: {
     backgroundColor: "#ff0",
-    position:"absolute",
-    left:Dimensions.get("screen").width*0.95
+    position: "absolute",
+    left: Dimensions.get("screen").width * 0.5,
   },
 });
