@@ -11,7 +11,7 @@ export const UseContacts = () => {
         contact.firstName && contact.lastName
           ? `${contact.firstName} ${contact.lastName}`
           : contact.name,
-      // email: contact.emails[0].email,
+      email: contact.emails[0]?.email,
     };
   };
 
@@ -32,10 +32,11 @@ export const UseContacts = () => {
           setContacts(
             data
               .filter(
-                (value) => value.firstName && value.lastName && value.name
-                // value.emails &&
-                // value.emails[0] &&
-                // value.emails[0].email
+                (value) =>
+                  value.firstName &&
+                  value.emails &&
+                  value.emails[0] &&
+                  value.emails[0].email
               )
               .map(mapContactToUser)
           );

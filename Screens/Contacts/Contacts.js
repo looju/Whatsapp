@@ -9,6 +9,7 @@ import { ListItem } from "../../Components/General/ListItem";
 
 export const Contacts = () => {
   const contact = UseContacts();
+  console.log(contact)
 
   const ContactPreview = ({ contact, image }) => {
     const { rooms } = useContext(GlobalContext);
@@ -17,11 +18,11 @@ export const Contacts = () => {
     useEffect(() => {
       const q = query(
         collection(db, "users"),
-        where("email", "==", contact.email)
+        where("email","==", contact.email)
       );
       const unsubscribe = onSnapshot(q, (snapshot) => {
         if (snapshot.docs.length > 0) {
-          const userDoc = snapshot.docs[0].data();
+          const userDoc = snapshot.docs[0].data();  //userDoc only returns an object that contains only contacts
           setUser((prevUser) => ({ ...prevUser, userDoc }));
         }
       });
