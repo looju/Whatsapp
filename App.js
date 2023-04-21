@@ -15,7 +15,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { HomeNav } from "./Navigator/HomeNav";
 import { Contacts } from "./Screens/Contacts/Contacts";
 import { ChatHeader } from "./Components/General/ChatHeader";
-import { ChatRoom } from './Screens/ChatRoom/ChatRoom';
+import { ChatRoom } from "./Screens/ChatRoom/ChatRoom";
 
 const Stack = createStackNavigator();
 
@@ -73,13 +73,13 @@ function App() {
             options={{
               headerTitle: "Select contacts",
               headerTitleStyle: { color: colors.white },
-              headerBackTitleStyle: { color: colors.white }
+              headerBackTitleStyle: { color: colors.white },
             }}
           />
           <Stack.Screen
-          name="ChatRoom"
-          componenet={ChatRoom}
-          options={{headerTitle:(props)=><ChatHeader {...props}/>}}
+            name="ChatRoom"
+            component={ChatRoom}
+            options={{ headerTitle: (props) => <ChatHeader {...props} /> }}
           />
         </Stack.Navigator>
       )}

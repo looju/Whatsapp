@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { UseContacts } from "../../Hooks/UseHooks";
 import { FlatList, StyleSheet } from "react-native";
@@ -8,6 +8,7 @@ import { db } from "./../../Config/Firebase";
 import { ListItem } from "../../Components/General/ListItem";
 import { useRoute } from "@react-navigation/native";
 
+
 export const Contacts = () => {
   const contact = UseContacts();
   const route = useRoute();
@@ -15,6 +16,7 @@ export const Contacts = () => {
 
   const ContactPreview = ({ contact, image }) => {
     const { rooms } = useContext(GlobalContext);
+    const {theme:{colors}}=useContext(GlobalContext);
     const [user, setUser] = useState(contact);
 
     useEffect(() => {
@@ -45,12 +47,19 @@ export const Contacts = () => {
   };
 
   return (
-    <FlatList
-      style={Styles.flatlist}
-      data={contact}
-      keyExtractor={(_, i) => i}
-      renderItem={({ item }) => <ContactPreview contact={item} image={image}/>}
-    />
+    <View>
+      {contact.length==0 &&(
+        <ActivityIndicator size={15} color={colors.white}/>
+      )}
+      <FlatList
+        style={Styles.flatlist}
+        data={contact}
+        keyExtractor={(_, i) => i}
+        renderItem={({ item }) => (
+          <ContactPreview contact={item} image={image} />
+        )}
+      />
+    </View>
   );
 };
 

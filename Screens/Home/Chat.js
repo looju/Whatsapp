@@ -10,7 +10,7 @@ import { UseContacts } from "../../Hooks/UseHooks";
 export const Chat = () => {
   const { currentUser } = auth;
   const { rooms, setRooms } = useContext(GlobalContext);
-  const contact=useContacts()
+  const contact=UseContacts()
 
   const chatsQuery = query(
     collection(db, "rooms"),
