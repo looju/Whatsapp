@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, Dimensions } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { UseContacts } from "../../Hooks/UseHooks";
 import { FlatList, StyleSheet } from "react-native";
@@ -8,15 +8,16 @@ import { db } from "./../../Config/Firebase";
 import { ListItem } from "../../Components/General/ListItem";
 import { useRoute } from "@react-navigation/native";
 
-
 export const Contacts = () => {
   const contact = UseContacts();
   const route = useRoute();
   const image = route.params && route.params.image;
+  const {
+    theme: { colors },
+  } = useContext(GlobalContext);
 
   const ContactPreview = ({ contact, image }) => {
     const { rooms } = useContext(GlobalContext);
-    const {theme:{colors}}=useContext(GlobalContext);
     const [user, setUser] = useState(contact);
 
     useEffect(() => {
@@ -47,10 +48,10 @@ export const Contacts = () => {
   };
 
   return (
-    <View>
-      {contact.length==0 &&(
-        <ActivityIndicator size={15} color={colors.white}/>
-      )}
+    <View style={Styles.container}>
+      <View style={Styles.actInd}>
+        <ActivityIndicator size={20} color={colors.white} />
+      </View>
       <FlatList
         style={Styles.flatlist}
         data={contact}
@@ -64,11 +65,21 @@ export const Contacts = () => {
 };
 
 const Styles = StyleSheet.create({
+  container:{
+    position:"absolute", 
+    flex: 1,
+  },
   flatlist: {
     flex: 1,
     padding: 10,
+    position:"absolute"
   },
   listitem: {
     marginTop: 7,
+  },
+  actInd: {
+    backgroundColor: "#ff0",
+    position:"absolute",
+    left:Dimensions.get("screen").width*0.95
   },
 });
