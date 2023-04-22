@@ -9,9 +9,11 @@ import {
 import { Avatar } from "./Avatar";
 import { useRoute } from "@react-navigation/native";
 import { GlobalContext } from "../../Services/Context/Context";
+import { UseContacts } from './../../Hooks/UseHooks';
 
 export const ComponentHeader = ({ ind, routeVal, avatar, title }) => {
   const route = useRoute();
+  const contact=UseContacts()
   const {
     theme: { colors },
   } = useContext(GlobalContext);
@@ -37,7 +39,7 @@ export const ComponentHeader = ({ ind, routeVal, avatar, title }) => {
         </View>
       )}
 
-      {ind == "true" && (
+      {ind == "true" && contact.length==0 && (
         <View style={Styles.ind}>
           <ActivityIndicator color={colors.white} size={17} />
         </View>

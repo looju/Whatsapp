@@ -49,16 +49,6 @@ export const Contacts = () => {
 
   return (
     <View style={Styles.container}>
-      {contact.length == 0 && (
-        <View style={Styles.actInd}>
-          <ActivityIndicator
-            size={20}
-            color={colors.foreground}
-            style={{ position: "absolute", zIndex: 10 }}
-          />
-        </View>
-      )}
-
       <FlatList
         style={Styles.flatlist}
         data={contact}

@@ -14,7 +14,7 @@ import { ContextWrapper } from "./Services/Context/ContextWrapper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeNav } from "./Navigator/HomeNav";
 import { Contacts } from "./Screens/Contacts/Contacts";
-import { ChatHeader } from "./Components/General/ChatHeader";
+import { ComponentHeader } from "./Components/General/ComponentHeader";
 import { ChatRoom } from "./Screens/ChatRoom/ChatRoom";
 
 const Stack = createStackNavigator();
@@ -71,7 +71,7 @@ function App() {
             name="Contacts"
             component={Contacts}
             options={{
-              headerTitle: "Select contacts",
+              headerTitle: (props)=><ComponentHeader ind="true" title={"Select contact"} {...props}/>,
               headerTitleStyle: { color: colors.white },
               headerBackTitleStyle: { color: colors.white },
             }}
@@ -79,7 +79,7 @@ function App() {
           <Stack.Screen
             name="ChatRoom"
             component={ChatRoom}
-            options={{ headerTitle: (props) => <ChatHeader {...props} /> }}
+            options={{ headerTitle: (props) => <ComponentHeader {...props} routeVal avatar/> }}
           />
         </Stack.Navigator>
       )}
