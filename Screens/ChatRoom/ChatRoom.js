@@ -1,6 +1,6 @@
 //@refresh reset
 import { View, Text } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
 import "react-native-get-random-values";
@@ -10,6 +10,7 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
 
 export const ChatRoom = () => {
+  const [roomHash, setRoomHash] = useState("");
   const { theme } = useContext(GlobalContext);
   const route = useRoute();
   const { currentUser } = auth;
@@ -17,7 +18,7 @@ export const ChatRoom = () => {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
-  const randomId = nanoid();
+  console.log("nanoid value:" + nanoid(22));
 
   const senderUser = currentUser.photoURL
     ? {
@@ -27,13 +28,14 @@ export const ChatRoom = () => {
       }
     : { name: currentUser.displayName, _id: currentUser.uid };
 
-  const roomId = room ? room.id : randomId;
+  const roomId = room ? room.id : "hdhdudu-sscs-e23ec"; // optimize with nanoid. Currently a problem with the nanoid package
 
   const roomRef = doc(db, "room", roomId);
   const roomMessageRef = collection(db, "room", roomId, "messages");
 
   useEffect(() => {
     (async () => {
+     
       if (!room) {
         const currentUserData = {
           displayName: currentUser.displayName,
@@ -54,11 +56,15 @@ export const ChatRoom = () => {
           participants: [currentUserData, userBData],
           participantsArray: [currentUser.email, userB.email],
         };
-        
+
         try {
-          setDoc(roomRef, roomData);
-        } catch (error) {}
+          await setDoc(roomRef, roomData);
+        } catch (error) {
+          console.log("error creating Doc at ChatRoom.js" + error);
+        }
       }
+      const emailHash=`${currentUser.email}:${userB.email}`
+      setRoomHash(emailHash)
     })();
   }, []);
 
