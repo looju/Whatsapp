@@ -6,7 +6,7 @@ import { auth } from "../../Config/Firebase";
 import "react-native-get-random-values";
 import { nanoid } from "nanoid";
 import { GlobalContext } from "./../../Services/Context/Context";
-import { collection, doc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
 
 export const ChatRoom = () => {
@@ -46,9 +46,18 @@ export const ChatRoom = () => {
           displayName: userB.contactName || userB.displayName,
           email: userB.email,
         };
-        if(userB.photoURL){
-          userBData.photoURL = userB.photoURL
+        if (userB.photoURL) {
+          userBData.photoURL = userB.photoURL;
         }
+
+        const roomData = {
+          participants: [currentUserData, userBData],
+          participantsArray: [currentUser.email, userB.email],
+        };
+        
+        try {
+          setDoc(roomRef, roomData);
+        } catch (error) {}
       }
     })();
   }, []);
