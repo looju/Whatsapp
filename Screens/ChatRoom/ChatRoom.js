@@ -46,6 +46,9 @@ export const ChatRoom = () => {
           displayName: userB.contactName || userB.displayName,
           email: userB.email,
         };
+        if(userB.photoURL){
+          userBData.photoURL = userB.photoURL
+        }
       }
     })();
   }, []);
