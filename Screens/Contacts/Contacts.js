@@ -41,7 +41,7 @@ export const Contacts = () => {
         user={user}
         image={image}
         room={rooms.find((room) =>
-          room.participantsarray.includes(contact.email)
+          room.participantsArray.includes(contact.email)
         )}
       />
     );

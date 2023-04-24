@@ -1,15 +1,22 @@
 //@refresh reset
-import { View, Text, ImageBackground,StyleSheet } from "react-native";
+import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
-import "react-native-get-random-values";
-import { nanoid } from "nanoid";
+// import "react-native-get-random-values";
+// import { nanoid } from "nanoid";
 import { GlobalContext } from "./../../Services/Context/Context";
-import { collection, doc, setDoc, onSnapshot, addDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  setDoc,
+  onSnapshot,
+  addDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
 import { GiftedChat } from "react-native-gifted-chat";
-import  MaterialCommunityIcons  from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
@@ -18,10 +25,9 @@ export const ChatRoom = () => {
   const route = useRoute();
   const { currentUser } = auth;
   const room = route.params.room;
+  console.log(room)
   const selectedImage = route.params.image;
   const userB = route.params.user;
-
-  
 
   const senderUser = currentUser.photoURL
     ? {
@@ -31,7 +37,7 @@ export const ChatRoom = () => {
       }
     : { name: currentUser.displayName, _id: currentUser.uid };
 
-  const roomId = room ? room.id : "hdhdudu-sscs-e23ec"; // optimize with nanoid. Currently a problem with the nanoid package
+  const roomId = room ? room.id :"hdhdudu-sscs-e23ec"; // optimize with nanoid. Currently a problem with the nanoid package
 
   const roomRef = doc(db, "room", roomId);
   const roomMessageRef = collection(db, "room", roomId, "messages");
@@ -91,12 +97,14 @@ export const ChatRoom = () => {
     [messages]
   );
 
-
-
-function onSend(messages=[]){
-const writes=messages.map(value=>addDoc(roomMessageRef,value)) 
-const lastMessage=messages[messages.length-1] // returns last element in the array. Could also use  messages.slice(-1)
-}
+  async function onSend(messages = []) {
+    const writes = messages.map((value) => addDoc(roomMessageRef, value));
+    const lastMessage = messages[messages.length - 1]; // returns last element in the array. Could also use  messages.slice(-1)
+    const updateWrites = writes.push(
+      updateDoc(roomRef, { lastMessage: lastMessage })
+    );
+    await Promise.all(updateWrites);
+  }
 
   return (
     <ImageBackground
@@ -105,12 +113,12 @@ const lastMessage=messages[messages.length-1] // returns last element in the arr
       source={require("../../assets/background.jpg")}
       style={Styles.container}
     >
-     <GiftedChat
-     messages={messages}
-     user={senderUser}
-     renderAvatar={null}
-     onSend={(message)=>onSend(message)}
-     />
+      <GiftedChat
+        messages={messages}
+        user={senderUser}
+        renderAvatar={null}
+        onSend={(message) => onSend(message)}
+      />
     </ImageBackground>
   );
 };

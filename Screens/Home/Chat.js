@@ -20,15 +20,14 @@ export const Chat = () => {
   useEffect(() => {
     const unSubscribe = onSnapshot(chatsQuery, (querySnapshot) => {
       const parsedChats = querySnapshot?.docs
-        ?.filter((doc) => doc.data().lastMessage) // create an array containing only the last message property
-        .map((doc) => ({
+        ?.map((doc) => ({
           id: doc.id,
           ...doc.data(),
           userB: doc.data.participants.find(
             (p) => p.email !== currentUser.email
           ), // So that user B is the other user possessing a different email
         }));
-      setRooms(parsedChats);
+      setRooms(filter((doc) => doc.data().lastMessage));
     });
 
     return () => unSubscribe();
