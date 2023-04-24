@@ -94,11 +94,14 @@ export const ChatRoom = () => {
     <ImageBackground
       resizeMethod="auto"
       resizeMode="cover"
-      source={require("../../assets/Aibg2.jpg")}
+      source={require("../../assets/background.jpg")}
       style={Styles.container}
     >
      <GiftedChat
      messages={messages}
+     user={senderUser}
+     renderAvatar={null}
+     onSend={(message)=>onSend(message)}
      />
     </ImageBackground>
   );
