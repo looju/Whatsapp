@@ -9,7 +9,7 @@ import { UseContacts } from "../../Hooks/UseHooks";
 
 export const Chat = () => {
   const { currentUser } = auth;
-  const { rooms, setRooms } = useContext(GlobalContext);
+  const { rooms, setRooms, setUnfilteredRooms } = useContext(GlobalContext);
   const contact=UseContacts()
 
   const chatsQuery = query(
@@ -27,7 +27,8 @@ export const Chat = () => {
             (p) => p.email !== currentUser.email
           ), // So that user B is the other user possessing a different email
         }));
-      setRooms(filter((doc) => doc.data().lastMessage));
+      setRooms(filter((doc) => doc.lastMessage));
+      setUnfilteredRooms(parsedChats)
     });
 
     return () => unSubscribe();

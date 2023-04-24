@@ -5,7 +5,6 @@ export const GlobalContext = createContext({
   theme,
   rooms: [],
   setRooms: () => {},
-  unfilteredRooms:[],
-  setUnfilteredRooms:()=>{},
-
+  unfilteredRooms: [],
+  setUnfilteredRooms: () => {},
 });
