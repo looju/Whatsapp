@@ -6,7 +6,7 @@ import { auth } from "../../Config/Firebase";
 import "react-native-get-random-values";
 import { nanoid } from "nanoid";
 import { GlobalContext } from "./../../Services/Context/Context";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
 
 export const ChatRoom = () => {
@@ -35,7 +35,6 @@ export const ChatRoom = () => {
 
   useEffect(() => {
     (async () => {
-     
       if (!room) {
         const currentUserData = {
           displayName: currentUser.displayName,
@@ -63,9 +62,21 @@ export const ChatRoom = () => {
           console.log("error creating Doc at ChatRoom.js" + error);
         }
       }
-      const emailHash=`${currentUser.email}:${userB.email}`
-      setRoomHash(emailHash)
+      const emailHash = `${currentUser.email}:${userB.email}`;
+      setRoomHash(emailHash);
     })();
+  }, []);
+  // return an array containing only added messages
+  useEffect(() => {
+    const unsubscribe = onSnapshot(roomMessageRef, (snapShot) => {
+      const messagesFirestore = snapShot
+        .docChanges()
+        .filter(({ type }) => type == "added")
+        .map(({ doc}) => {
+          const messages=doc.data()
+          return {...messages, createdAt: messages.createdAt.toDate()}
+        });
+    });
   }, []);
 
   return (
