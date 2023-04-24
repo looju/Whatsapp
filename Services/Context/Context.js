@@ -4,5 +4,8 @@ import { theme } from "../../Utilities/Utilities";
 export const GlobalContext = createContext({
   theme,
   rooms: [],
-  setRooms: () => {}
+  setRooms: () => {},
+  unfilteredRooms:[],
+  setUnfilteredRooms:()=>{},
+
 });
