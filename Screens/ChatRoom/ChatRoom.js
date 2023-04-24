@@ -78,7 +78,9 @@ export const ChatRoom = () => {
           const messages = doc.data();
           return { ...messages, createdAt: messages.createdAt.toDate() };
         });
+      appendMesages(messagesFirestore);
     });
+    return () => unsubscribe();
   }, []);
 
   const appendMesages = useCallback(
