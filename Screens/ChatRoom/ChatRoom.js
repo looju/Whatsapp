@@ -3,8 +3,8 @@ import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
-// import "react-native-get-random-values";
-// import { nanoid } from "nanoid";
+import "react-native-get-random-values";
+import {v4 as uuidv4} from "uuid"
 import { GlobalContext } from "./../../Services/Context/Context";
 import {
   collection,
@@ -25,7 +25,8 @@ export const ChatRoom = () => {
   const route = useRoute();
   const { currentUser } = auth;
   const room = route.params.room;
-  console.log(room)
+  console.log("room in chatroom.js"+room)
+  console.log(uuidv4())
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
@@ -37,7 +38,7 @@ export const ChatRoom = () => {
       }
     : { name: currentUser.displayName, _id: currentUser.uid };
 
-  const roomId = room ? room.id :"hdhdudu-sscs-e23ec"; // optimize with nanoid. Currently a problem with the nanoid package
+  const roomId = room ? room.id :uuidv4(); // optimize with nanoid. Currently a problem with the nanoid package
 
   const roomRef = doc(db, "room", roomId);
   const roomMessageRef = collection(db, "room", roomId, "messages");

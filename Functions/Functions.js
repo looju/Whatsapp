@@ -1,6 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 import "react-native-get-random-values";
-import { nanoid } from "nanoid";
+import {v4 as uuidv4} from "uuid"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../Config/Firebase";
 
@@ -33,7 +33,7 @@ export async function UploadImage(uri, path, fName) {
     xhr.send(null);
   });
 
-  const fileName = fName || nanoid();
+  const fileName = fName || uuidv4();
   const imageRef = ref(storage, `${path}/${fileName}.jpeg`);
 
   const snapshot = await uploadBytes(imageRef, blob, {

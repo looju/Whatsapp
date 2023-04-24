@@ -27,7 +27,7 @@ export const Chat = () => {
             (p) => p.email !== currentUser.email
           ), // So that user B is the other user possessing a different email
         }));
-      setRooms(filter((doc) => doc.lastMessage));
+      setRooms(parsedChats.filter(doc=>doc.lastMessage));
       setUnfilteredRooms(parsedChats)
     });
 
