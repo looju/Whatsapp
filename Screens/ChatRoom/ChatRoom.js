@@ -26,7 +26,6 @@ export const ChatRoom = () => {
   const { currentUser } = auth;
   const room = route.params.room;
   console.log("room in chatroom.js"+room)
-  console.log(uuidv4())
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
@@ -38,7 +37,7 @@ export const ChatRoom = () => {
       }
     : { name: currentUser.displayName, _id: currentUser.uid };
 
-  const roomId = room ? room.id :uuidv4(); // optimize with nanoid. Currently a problem with the nanoid package
+  const roomId = room ? room.id :"hjhii9-0ouij0jij"; // optimize with nanoid. Currently a problem with the nanoid package
 
   const roomRef = doc(db, "room", roomId);
   const roomMessageRef = collection(db, "room", roomId, "messages");

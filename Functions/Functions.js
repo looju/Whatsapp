@@ -1,6 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 import "react-native-get-random-values";
-import {v4 as uuidv4} from "uuid"
+import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../Config/Firebase";
 
@@ -46,3 +46,7 @@ export async function UploadImage(uri, path, fName) {
 
   return { url, fileName };
 }
+
+export const randomString = () => {
+  return String(Date.now().toString(32) + Math.random().toString(16)).replace(/\./g, "");
+};
