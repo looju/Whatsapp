@@ -1,6 +1,6 @@
 //@refresh reset
 import { View, Text } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
 import "react-native-get-random-values";
@@ -8,9 +8,11 @@ import { nanoid } from "nanoid";
 import { GlobalContext } from "./../../Services/Context/Context";
 import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
+import { GiftedChat } from "react-native-gifted-chat";
 
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
+  const [messages, setMessages] = useState([]);
   const { theme } = useContext(GlobalContext);
   const route = useRoute();
   const { currentUser } = auth;
@@ -72,12 +74,19 @@ export const ChatRoom = () => {
       const messagesFirestore = snapShot
         .docChanges()
         .filter(({ type }) => type == "added")
-        .map(({ doc}) => {
-          const messages=doc.data()
-          return {...messages, createdAt: messages.createdAt.toDate()}
+        .map(({ doc }) => {
+          const messages = doc.data();
+          return { ...messages, createdAt: messages.createdAt.toDate() };
         });
     });
   }, []);
+
+  const appendMesages = useCallback(
+    (messages) => {
+      setMessages((prevMessages) => GiftedChat.append(prevMessages, messages));
+    },
+    [messages]
+  );
 
   return (
     <View>
