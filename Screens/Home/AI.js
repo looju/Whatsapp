@@ -97,11 +97,11 @@ export const AI = () => {
           <ScrollView style={Styles.container}>
             <SenderMessage
               message={prevMsgs?.usermessage}
-              time={timeStampToDate(prevMsgs.timestamp?.seconds)}
+              time={timeStampToDate(prevMsgs?.timestamp?.seconds)}
             />
             <AiMessage
               message={prevMsgs?.AImessage}
-              time={timeStampToDate(prevMsgs.timestamp?.seconds)}
+              time={timeStampToDate(prevMsgs?.timestamp?.seconds)}
             />
           </ScrollView>
         </TouchableWithoutFeedback>

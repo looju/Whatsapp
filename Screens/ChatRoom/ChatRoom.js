@@ -1,6 +1,6 @@
 //@refresh reset
-import { View, Text } from "react-native";
-import React, { useCallback, useContext, useEffect } from "react";
+import { View, Text, ImageBackground,StyleSheet } from "react-native";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
 import "react-native-get-random-values";
@@ -20,7 +20,7 @@ export const ChatRoom = () => {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
-  console.log("nanoid value:" + nanoid(22));
+  
 
   const senderUser = currentUser.photoURL
     ? {
@@ -91,8 +91,21 @@ export const ChatRoom = () => {
   );
 
   return (
-    <View>
-      <Text>ChatRoom</Text>
-    </View>
+    <ImageBackground
+      resizeMethod="auto"
+      resizeMode="cover"
+      source={require("../../assets/Aibg2.jpg")}
+      style={Styles.container}
+    >
+     <GiftedChat
+     messages={messages}
+     />
+    </ImageBackground>
   );
 };
+
+const Styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
