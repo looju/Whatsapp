@@ -6,9 +6,10 @@ import { auth } from "../../Config/Firebase";
 import "react-native-get-random-values";
 import { nanoid } from "nanoid";
 import { GlobalContext } from "./../../Services/Context/Context";
-import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
+import { collection, doc, setDoc, onSnapshot, addDoc } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
 import { GiftedChat } from "react-native-gifted-chat";
+import  MaterialCommunityIcons  from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
@@ -89,6 +90,13 @@ export const ChatRoom = () => {
     },
     [messages]
   );
+
+
+
+function onSend(messages=[]){
+const writes=messages.map(value=>addDoc(roomMessageRef,value)) 
+const lastMessage=messages[messages.length-1] // returns last element in the array. Could also use  messages.slice(-1)
+}
 
   return (
     <ImageBackground
