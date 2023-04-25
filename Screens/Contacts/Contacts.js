@@ -34,6 +34,9 @@ export const Contacts = () => {
       return () => unsubscribe();
     }, []);
 
+
+    console.log(unfilteredRooms)
+
     return (
       <ListItem
         style={Styles.listitem}

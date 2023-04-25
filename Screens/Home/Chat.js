@@ -9,30 +9,33 @@ import { UseContacts } from "../../Hooks/UseHooks";
 
 export const Chat = () => {
   const { currentUser } = auth;
-  const { rooms, setRooms, setUnfilteredRooms } = useContext(GlobalContext);
+  const { rooms, setRooms, setUnfilteredRooms, unfilteredRooms } = useContext(GlobalContext);
   const contact=UseContacts()
 
   const chatsQuery = query(
-    collection(db, "rooms"),
-    where("participantsarray", "array-contains", currentUser.email)
+    collection(db, "room"),
+    where("participantsArray", "array-contains", currentUser.email)
   );
 
   useEffect(() => {
     const unSubscribe = onSnapshot(chatsQuery, (querySnapshot) => {
       const parsedChats = querySnapshot?.docs
-        ?.map((doc) => ({
+        .map((doc) => ({
           id: doc.id,
           ...doc.data(),
-          userB: doc.data.participants.find(
+          userB: doc.data().participants.find(
             (p) => p.email !== currentUser.email
           ), // So that user B is the other user possessing a different email
         }));
       setRooms(parsedChats.filter(doc=>doc.lastMessage));
       setUnfilteredRooms(parsedChats)
+     
     });
 
     return () => unSubscribe();
   }, []);
+
+  
 
   const getUserB = (user, contacts) => {
   const userContact=contacts.find(contact=>contact.email==user.email)

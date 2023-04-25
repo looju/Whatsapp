@@ -5,10 +5,19 @@ import { GlobalContext } from "./../../Services/Context/Context";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import { Avatar } from "./Avatar";
 
-export const ListItem = ({ type, description, user,time, room, image, style }) => {
+export const ListItem = ({
+  type,
+  description,
+  user,
+  time,
+  room,
+  image,
+  style,
+}) => {
   const navigation = useNavigation();
   const {
     theme: { colors },
+    unfilteredRooms,
   } = useContext(GlobalContext);
 
   return (
@@ -33,19 +42,23 @@ export const ListItem = ({ type, description, user,time, room, image, style }) =
                 {user.contactName || user.displayName}
               </Text>
             </Col>
-              {time && (
-            <Col style={Styles.time}>
-              <Text style={[Styles.timeText, { color: colors.secondaryText }]}>
-                {new Date(time.seconds * 1000).toLocaleDateString()}
+            {time && (
+              <Col style={Styles.time}>
+                <Text
+                  style={[Styles.timeText, { color: colors.secondaryText }]}
+                >
+                  {new Date(time.seconds * 1000).toLocaleDateString()}
+                </Text>
+              </Col>
+            )}
+          </Row>
+          {description && (
+            <Row style={Styles.desc}>
+              <Text style={[Styles.descText, { color: colors.secondaryText }]}>
+                {description}
               </Text>
-            </Col>
+            </Row>
           )}
-          </Row>
-        {description && (
-          <Row style={Styles.desc}>
-            <Text  style={[Styles.descText, { color: colors.secondaryText }]}>{description}</Text>
-          </Row>
-        )}
         </Col>
       </Grid>
     </TouchableOpacity>
@@ -84,10 +97,10 @@ const Styles = StyleSheet.create({
   timeText: {
     fontSize: 11,
   },
-  desc:{
-    marginTop:-5
+  desc: {
+    marginTop: -5,
   },
-  descText:{
-    fontSize:13
-  }
+  descText: {
+    fontSize: 13,
+  },
 });

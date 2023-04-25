@@ -4,7 +4,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
 import "react-native-get-random-values";
-import {v4 as uuidv4} from "uuid"
+import { v4 as uuidv4 } from "uuid";
 import { GlobalContext } from "./../../Services/Context/Context";
 import {
   collection,
@@ -17,17 +17,20 @@ import {
 import { db } from "./../../Config/Firebase";
 import { GiftedChat } from "react-native-gifted-chat";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { randomString } from "../../Functions/Functions";
 
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
   const [messages, setMessages] = useState([]);
-  const { theme } = useContext(GlobalContext);
+  const { theme, unfilteredRooms } = useContext(GlobalContext);
   const route = useRoute();
   const { currentUser } = auth;
   const room = route.params.room;
-  console.log("room in chatroom.js"+room)
   const selectedImage = route.params.image;
   const userB = route.params.user;
+
+  console.log("room in chatroom.js" + room);
+  console.log("unfiltered rooms: " + unfilteredRooms);
 
   const senderUser = currentUser.photoURL
     ? {
@@ -37,7 +40,7 @@ export const ChatRoom = () => {
       }
     : { name: currentUser.displayName, _id: currentUser.uid };
 
-  const roomId = room ? room.id :"hjhii9-0ouij0jij"; // optimize with nanoid. Currently a problem with the nanoid package
+  const roomId = room ? room.id : randomString();
 
   const roomRef = doc(db, "room", roomId);
   const roomMessageRef = collection(db, "room", roomId, "messages");

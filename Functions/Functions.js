@@ -1,6 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../Config/Firebase";
 
@@ -33,7 +32,7 @@ export async function UploadImage(uri, path, fName) {
     xhr.send(null);
   });
 
-  const fileName = fName || uuidv4();
+  const fileName = fName || randomString();
   const imageRef = ref(storage, `${path}/${fileName}.jpeg`);
 
   const snapshot = await uploadBytes(imageRef, blob, {
@@ -50,3 +49,4 @@ export async function UploadImage(uri, path, fName) {
 export const randomString = () => {
   return String(Date.now().toString(32) + Math.random().toString(16)).replace(/\./g, "");
 };
+
