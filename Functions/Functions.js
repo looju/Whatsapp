@@ -1,5 +1,4 @@
 import * as ImagePicker from "expo-image-picker";
-import "react-native-get-random-values";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../Config/Firebase";
 

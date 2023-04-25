@@ -3,8 +3,6 @@ import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
-import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 import { GlobalContext } from "./../../Services/Context/Context";
 import {
   collection,
@@ -29,8 +27,7 @@ export const ChatRoom = () => {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
-  console.log("room in chatroom.js" + room);
-  console.log("unfiltered rooms: " + unfilteredRooms);
+  
 
   const senderUser = currentUser.photoURL
     ? {
