@@ -5,7 +5,7 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
 } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
@@ -26,6 +26,7 @@ import {
   InputToolbar,
   Bubble,
 } from "react-native-gifted-chat";
+import ImageView from "react-native-image-viewing";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   PickImage,
@@ -36,9 +37,13 @@ import {
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
   const [messages, setMessages] = useState([]);
+  const [imageVisible, setImageVisible] = useState(false);
+  const [selectedImageView, setSelectedImageView] = useState("");
+
   const {
     theme: { colors },
   } = useContext(GlobalContext);
+
   const route = useRoute();
   const { currentUser } = auth;
   const room = route.params.room;
@@ -100,7 +105,8 @@ export const ChatRoom = () => {
         .map(({ doc }) => {
           const messages = doc.data();
           return { ...messages, createdAt: messages.createdAt.toDate() }; // would return the last added value to the roomMessageRef. This would be the last message since the onsend function adds a message to the roomMessageRef
-        }).sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime()) // to return messages in descending order
+        })
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime()); // to return messages in descending order
       appendMesages(messagesFirestore);
     });
     return () => unsubscribe();
@@ -144,7 +150,6 @@ export const ChatRoom = () => {
   const handlePhotoPicker = async () => {
     const result = await PickImage();
     if (!result.canceled) {
-      console.log(" image uri :" + result.assets[0].uri);
       sendImage(result.assets[0].uri);
     }
     if (result.canceled) {
@@ -159,6 +164,13 @@ export const ChatRoom = () => {
       source={require("../../assets/background.jpg")}
       style={Styles.container}
     >
+      <ImageView
+        images={[{ uri: selectedImageView }]}
+        imageIndex={0}
+        visible={imageVisible}
+        onRequestClose={() => setImageVisible(false)}
+      />
+
       <GiftedChat
         messages={messages}
         user={senderUser}
@@ -224,7 +236,12 @@ export const ChatRoom = () => {
         renderMessageImage={(props) => {
           return (
             <View style={Styles.imageView}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setImageVisible(true);
+                  setSelectedImageView(props.currentMessage.image);
+                }}
+              >
                 <Image
                   style={[Styles.image, { resizeMode: "cover" }]}
                   source={{ uri: props.currentMessage.image }}
