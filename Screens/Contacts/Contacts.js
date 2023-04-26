@@ -34,8 +34,7 @@ export const Contacts = () => {
       return () => unsubscribe();
     }, []);
 
-
-    console.log(unfilteredRooms)
+    console.log(unfilteredRooms);
 
     return (
       <ListItem
@@ -43,6 +42,7 @@ export const Contacts = () => {
         type="contacts"
         user={user}
         image={image}
+        dark
         room={unfilteredRooms.find((room) =>
           room.participantsArray.includes(contact.email)
         )}
@@ -76,10 +76,5 @@ const Styles = StyleSheet.create({
   },
   listitem: {
     marginTop: 7,
-  },
-  actInd: {
-    backgroundColor: "#ff0",
-    position: "absolute",
-    left: Dimensions.get("screen").width * 0.5,
   },
 });

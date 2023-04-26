@@ -94,6 +94,10 @@ export const ChatRoom = () => {
       }
       const emailHash = `${currentUser.email}:${userB.email}`;
       setRoomHash(emailHash);
+
+      if (selectedImage && selectedImage.uri) {
+        await sendImage(selectedImage.uri, emailHash);
+      }
     })();
   }, []);
   // return an array containing only added messages
@@ -208,7 +212,7 @@ export const ChatRoom = () => {
                     text: text.trim(),
                     user,
                     _id: messageIdGenerator(),
-                  });
+                  },true);
                 }
               }}
             >

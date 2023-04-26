@@ -11,10 +11,10 @@ import { useRoute } from "@react-navigation/native";
 import { GlobalContext } from "../../Services/Context/Context";
 import { UseContacts } from "./../../Hooks/UseHooks";
 
-export const ComponentHeader = ({ ind, routeVal, avatar, title, }) => {
+export const ComponentHeader = ({ ind, routeVal, avatar, title }) => {
   const route = useRoute();
   const contact = UseContacts();
-  const userB = route.params.user;
+  
   const {
     theme: { colors },
   } = useContext(GlobalContext);
@@ -33,11 +33,7 @@ export const ComponentHeader = ({ ind, routeVal, avatar, title, }) => {
           </Text>
         </View>
       )}
-      {userB.email &&  (
-        <View style={Styles.online}>
-          <Text style={{ color: colors.white, fontSize: 12.5 }}>Online</Text>
-        </View>
-      )}
+     
 
       {title && (
         <View style={Styles.title}>
@@ -60,8 +56,8 @@ const Styles = StyleSheet.create({
   },
   avatar: {
     right: 20,
-    alignItems:"center",
-    justifyContent:"center",
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     marginLeft: 15,

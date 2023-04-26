@@ -42,7 +42,7 @@ export const ListItem = ({
               <Text
                 style={[
                   Styles.text,
-                  { color: (dark = "true" ? colors.white : colors.text) },
+                  { color: (dark ? colors.black : colors.white) },
                 ]}
               >
                 {user.contactName || user.displayName}

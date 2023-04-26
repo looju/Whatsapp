@@ -55,7 +55,7 @@ export const Chat = () => {
           room={room}
           time={room.lastMessage.createdAt}
           user={getUserB(room.userB, contact)}
-          dark="true"
+          
         />
       ))}
       <ContactFloatingIcon />
