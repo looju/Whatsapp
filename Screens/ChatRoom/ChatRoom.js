@@ -20,7 +20,7 @@ import { randomString } from "../../Functions/Functions";
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
   const [messages, setMessages] = useState([]);
-  const { theme, unfilteredRooms } = useContext(GlobalContext);
+  const { theme:{colors}, unfilteredRooms } = useContext(GlobalContext);
   const route = useRoute();
   const { currentUser } = auth;
   const room = route.params.room;
@@ -116,10 +116,14 @@ export const ChatRoom = () => {
         user={senderUser}
         renderAvatar={null}
         onSend={(message) => onSend(message)}
-        renderActions={() => (
-          <Actions {...props} containerStyle={Styles.action} />
+        renderActions={(props) => (
+          <Actions
+            {...props}
+            containerStyle={Styles.action}
+            icon={() => <MaterialCommunityIcons name="camera" size={25} color={colors.iconGray}/>}
+          />
         )}
-      />
+      /> 
     </ImageBackground>
   );
 };
