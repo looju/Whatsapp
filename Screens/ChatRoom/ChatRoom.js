@@ -27,8 +27,6 @@ export const ChatRoom = () => {
   const selectedImage = route.params.image;
   const userB = route.params.user;
 
-  
-
   const senderUser = currentUser.photoURL
     ? {
         name: currentUser.displayName,
@@ -83,7 +81,7 @@ export const ChatRoom = () => {
         .filter(({ type }) => type == "added")
         .map(({ doc }) => {
           const messages = doc.data();
-          return { ...messages, createdAt: messages.createdAt.toDate() };
+          return { ...messages, createdAt: messages.createdAt.toDate() }; // would return the last added value to the roomMessageRef. This would be the last message since the onsend function adds a message to the roomMessageRef
         });
       appendMesages(messagesFirestore);
     });
