@@ -27,7 +27,7 @@ export const Contacts = () => {
       );
       const unsubscribe = onSnapshot(q, (snapshot) => {
         if (snapshot.docs.length > 0) {
-          const userDoc = snapshot.docs[0].data(); //userDoc only returns an object that contains only contacts
+          const userDoc = snapshot.docs[0].data(); //userDoc returns an object that contains only contacts
           setUser((prevUser) => ({ ...prevUser, userDoc }));
         }
       });

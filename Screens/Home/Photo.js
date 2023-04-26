@@ -1,18 +1,24 @@
 import { View, Text } from "react-native";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { PickImage } from "../../Functions/Functions";
 
 export const Photo = () => {
   const navigation = useNavigation();
   const [cancelled, setCancelled] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
+    const unSubscribe = navigation.addListener("focus", async () => {
+      const result = await PickImage();
+      navigation.navigate("Contacts", { image: result });
+      if (result.canceled) {
+        setCancelled(true);
+        setTimeout(() => navigation.navigate("Chat"), 1000);
+      }
+    });
 
-  },[navigation, cancelled])
+    return () => unSubscribe();
+  }, [navigation, cancelled]);
 
-  return (
-    <View>
-      <Text>Photo</Text>
-    </View>
-  );
+  return <View />;
 };
