@@ -5,6 +5,7 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
+  Image
 } from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
@@ -37,7 +38,6 @@ export const ChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const {
     theme: { colors },
-    unfilteredRooms,
   } = useContext(GlobalContext);
   const route = useRoute();
   const { currentUser } = auth;
@@ -100,7 +100,7 @@ export const ChatRoom = () => {
         .map(({ doc }) => {
           const messages = doc.data();
           return { ...messages, createdAt: messages.createdAt.toDate() }; // would return the last added value to the roomMessageRef. This would be the last message since the onsend function adds a message to the roomMessageRef
-        });
+        }).sort((a,b)=>b.createdAt.getTime() - a.createdAt.getTime()) // to return messages in descending order
       appendMesages(messagesFirestore);
     });
     return () => unsubscribe();
@@ -144,8 +144,8 @@ export const ChatRoom = () => {
   const handlePhotoPicker = async () => {
     const result = await PickImage();
     if (!result.canceled) {
-      console.log(" image uri :"+ result.assets[0].uri);
-      sendImage( result.assets[0].uri);
+      console.log(" image uri :" + result.assets[0].uri);
+      sendImage(result.assets[0].uri);
     }
     if (result.canceled) {
       console.log("image canceled");
@@ -221,6 +221,18 @@ export const ChatRoom = () => {
             }}
           />
         )}
+        renderMessageImage={(props) => {
+          return (
+            <View style={Styles.imageView}>
+              <TouchableOpacity>
+                <Image
+                  style={[Styles.image, { resizeMode: "cover" }]}
+                  source={{ uri: props.currentMessage.image }}
+                />
+              </TouchableOpacity>
+            </View>
+          );
+        }}
         timeTextStyle={{ right: { color: colors.iconGray } }}
       />
     </ImageBackground>
@@ -259,5 +271,15 @@ const Styles = StyleSheet.create({
     marginBottom: 2,
     borderRadius: 20,
     paddingTop: 5,
+  },
+  imageView: {
+    borderRadius: 15,
+    padding: 2,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    padding: 6,
+    borderRadius: 15,
   },
 });
