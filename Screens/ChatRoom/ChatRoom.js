@@ -152,7 +152,18 @@ export const ChatRoom = () => {
           const { onSend, text, user, messageIdGenerator } = props;
 
           return (
-            <TouchableOpacity style={Styles.send}>
+            <TouchableOpacity
+              style={Styles.send}
+              onPress={() => {
+                if (text && onSend) {
+                  onSend({
+                    text: text.trim(),
+                    user,
+                    _id: messageIdGenerator(),
+                  });
+                }
+              }}
+            >
               <MaterialCommunityIcons
                 name="send"
                 size={30}
