@@ -13,6 +13,7 @@ export const ListItem = ({
   room,
   image,
   style,
+  dark,
 }) => {
   const navigation = useNavigation();
   const {
@@ -38,14 +39,19 @@ export const ListItem = ({
         <Col style={Styles.col2}>
           <Row style={Styles.row}>
             <Col>
-              <Text style={[Styles.text, { color: colors.text }]}>
+              <Text
+                style={[
+                  Styles.text,
+                  { color: (dark = "true" ? colors.white : colors.text) },
+                ]}
+              >
                 {user.contactName || user.displayName}
               </Text>
             </Col>
             {time && (
               <Col style={Styles.time}>
                 <Text
-                  style={[Styles.timeText, { color: colors.secondaryText }]}
+                  style={[Styles.timeText, { color: (dark = "true" ? colors.white : colors.secondaryText) },]}
                 >
                   {new Date(time.seconds * 1000).toLocaleDateString()}
                 </Text>

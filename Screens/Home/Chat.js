@@ -55,6 +55,7 @@ export const Chat = () => {
           room={room}
           time={room.lastMessage.createdAt}
           user={getUserB(room.userB, contact)}
+          dark="true"
         />
       ))}
       <ContactFloatingIcon />
@@ -67,5 +68,6 @@ const Styles = StyleSheet.create({
     flex: 1,
     padding: 5,
     paddingRight: 10,
+    backgroundColor:"#000"
   },
 });
