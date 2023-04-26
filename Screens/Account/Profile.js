@@ -47,15 +47,24 @@ export const Profile = ({ navigation }) => {
     }
 
     const userData = {
-      displayName:displayName,
+      displayName: displayName,
       email: user.email,
     };
     if (photoURL) {
       userData.photoURL = photoURL; //adding a new key to the userData object if photoURL exists
     }
+
+    function storeDataLocally(){try {
+      const jsonValue = JSON.stringify(userData);
+      await AsyncStorage.setItem("userData", jsonValue);
+    } catch (e) {
+      console.log("error saving user data locally at Profile.js" + e)
+    }}
+
     await Promise.all([
       updateProfile(user, userData),
       setDoc(doc(db, "users", user.uid), { ...userData, uid: user.uid }),
+      storeDataLocally()
     ]).then(setLoading(false));
     navigation.navigate("Home");
   };
