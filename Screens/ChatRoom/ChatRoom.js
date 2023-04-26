@@ -1,5 +1,11 @@
 //@refresh reset
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { auth } from "../../Config/Firebase";
@@ -20,7 +26,10 @@ import { randomString } from "../../Functions/Functions";
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
   const [messages, setMessages] = useState([]);
-  const { theme:{colors}, unfilteredRooms } = useContext(GlobalContext);
+  const {
+    theme: { colors },
+    unfilteredRooms,
+  } = useContext(GlobalContext);
   const route = useRoute();
   const { currentUser } = auth;
   const room = route.params.room;
@@ -104,6 +113,8 @@ export const ChatRoom = () => {
     await Promise.all(updateWrites);
   }
 
+  const handlePhotoPicker = () => {};
+
   return (
     <ImageBackground
       resizeMethod="auto"
@@ -120,10 +131,38 @@ export const ChatRoom = () => {
           <Actions
             {...props}
             containerStyle={Styles.action}
-            icon={() => <MaterialCommunityIcons name="camera" size={25} color={colors.iconGray}/>}
+            icon={() => (
+              <View style={Styles.iconView}>
+                <MaterialCommunityIcons
+                  name="camera"
+                  size={25}
+                  color={colors.iconGray}
+                  onPress={() => handlePhotoPicker()}
+                />
+                <MaterialCommunityIcons
+                  name="microphone"
+                  size={28}
+                  color={colors.foreground}
+                />
+              </View>
+            )}
           />
         )}
-      /> 
+        renderSend={(props) => {
+          const { onSend, text, user, messageIdGenerator } = props;
+
+          return (
+            <TouchableOpacity style={Styles.send}>
+              <MaterialCommunityIcons
+                name="send"
+                size={30}
+                color={colors.foreground}
+              />
+            </TouchableOpacity>
+          );
+        }}
+        timeTextStyle={{ right: { color: colors.iconGray } }}
+      />
     </ImageBackground>
   );
 };
@@ -135,7 +174,24 @@ const Styles = StyleSheet.create({
   action: {
     position: "absolute",
     right: 50,
-    bottom: 5,
+    bottom: 2,
     zIndex: 9999,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  send: {
+    height: 40,
+    width: 40,
+    borderRadius: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    bottom: 5,
+  },
+  iconView: {
+    flexDirection: "row",
+    width: 60,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    right: 10,
   },
 });
