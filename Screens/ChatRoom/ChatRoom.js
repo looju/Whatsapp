@@ -13,7 +13,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
-import { GiftedChat } from "react-native-gifted-chat";
+import { Actions, GiftedChat } from "react-native-gifted-chat";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { randomString } from "../../Functions/Functions";
 
@@ -116,6 +116,9 @@ export const ChatRoom = () => {
         user={senderUser}
         renderAvatar={null}
         onSend={(message) => onSend(message)}
+        renderActions={() => (
+          <Actions {...props} containerStyle={Styles.action} />
+        )}
       />
     </ImageBackground>
   );
@@ -124,5 +127,11 @@ export const ChatRoom = () => {
 const Styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  action: {
+    position: "absolute",
+    right: 50,
+    bottom: 5,
+    zIndex: 9999,
   },
 });

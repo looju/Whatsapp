@@ -31,7 +31,6 @@ function App() {
       setLoading(false);
       if (user) {
         setCurrentUser(user);
-        console.log(currentUser);
       }
     });
     return () => unSubscribe();
