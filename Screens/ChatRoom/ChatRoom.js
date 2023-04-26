@@ -26,7 +26,11 @@ import {
   Bubble,
 } from "react-native-gifted-chat";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { randomString } from "../../Functions/Functions";
+import {
+  PickImage,
+  randomString,
+  UploadImage,
+} from "../../Functions/Functions";
 
 export const ChatRoom = () => {
   const [roomHash, setRoomHash] = useState("");
@@ -118,7 +122,35 @@ export const ChatRoom = () => {
     await Promise.all(updateWrites);
   }
 
-  const handlePhotoPicker = () => {};
+  const sendImage = async (uri, roomPath) => {
+    const { url, fileName } = await UploadImage(
+      uri,
+      `images/rooms/${roomPath || roomHash}`
+    );
+    const message = {
+      _id: fileName,
+      text: "",
+      createdAt: new Date(),
+      user: senderUser,
+      image: url,
+    };
+    const lastMessage = { ...message, text: "Image" };
+    await Promise.all([
+      addDoc(roomMessageRef, message),
+      updateDoc(roomRef, { lastMessage }),
+    ]);
+  };
+
+  const handlePhotoPicker = async () => {
+    const result = await PickImage();
+    if (!result.canceled) {
+      console.log(" image uri :"+ result.assets[0].uri);
+      sendImage( result.assets[0].uri);
+    }
+    if (result.canceled) {
+      console.log("image canceled");
+    }
+  };
 
   return (
     <ImageBackground
