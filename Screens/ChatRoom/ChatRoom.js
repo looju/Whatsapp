@@ -19,7 +19,12 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "./../../Config/Firebase";
-import { Actions, GiftedChat } from "react-native-gifted-chat";
+import {
+  Actions,
+  GiftedChat,
+  InputToolbar,
+  Bubble,
+} from "react-native-gifted-chat";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { randomString } from "../../Functions/Functions";
 
@@ -150,7 +155,6 @@ export const ChatRoom = () => {
         )}
         renderSend={(props) => {
           const { onSend, text, user, messageIdGenerator } = props;
-
           return (
             <TouchableOpacity
               style={Styles.send}
@@ -172,6 +176,19 @@ export const ChatRoom = () => {
             </TouchableOpacity>
           );
         }}
+        renderInputToolbar={(props) => (
+          <InputToolbar {...props} style={Styles.inputBar} />
+        )}
+        renderBubble={(props) => (
+          <Bubble
+            {...props}
+            textStyle={{ right: { color: colors.text } }}
+            wrapperStyle={{
+              left: { backgroundColor: colors.white },
+              right: { backgroundColor: colors.tertiary },
+            }}
+          />
+        )}
         timeTextStyle={{ right: { color: colors.iconGray } }}
       />
     </ImageBackground>
@@ -204,5 +221,11 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     right: 10,
+  },
+  inputBar: {
+    marginHorizontal: 10,
+    marginBottom: 2,
+    borderRadius: 20,
+    paddingTop: 5,
   },
 });

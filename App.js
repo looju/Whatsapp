@@ -78,7 +78,7 @@ function App() {
           <Stack.Screen
             name="ChatRoom"
             component={ChatRoom}
-            options={{ headerTitle: (props) => <ComponentHeader {...props} routeVal avatar/> }}
+            options={{ headerTitle: (props) => <ComponentHeader {...props} routeVal avatar /> }}
           />
         </Stack.Navigator>
       )}

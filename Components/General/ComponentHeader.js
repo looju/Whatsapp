@@ -9,19 +9,20 @@ import {
 import { Avatar } from "./Avatar";
 import { useRoute } from "@react-navigation/native";
 import { GlobalContext } from "../../Services/Context/Context";
-import { UseContacts } from './../../Hooks/UseHooks';
+import { UseContacts } from "./../../Hooks/UseHooks";
 
-export const ComponentHeader = ({ ind, routeVal, avatar, title }) => {
+export const ComponentHeader = ({ ind, routeVal, avatar, title, }) => {
   const route = useRoute();
-  const contact=UseContacts()
+  const contact = UseContacts();
+  const userB = route.params.user;
   const {
     theme: { colors },
   } = useContext(GlobalContext);
   return (
     <View style={Styles.container}>
       {avatar && (
-        <View>
-          <Avatar size={40} user={route.params.user} />
+        <View style={Styles.avatar}>
+          <Avatar size={50} user={route.params.user} />
         </View>
       )}
 
@@ -32,6 +33,11 @@ export const ComponentHeader = ({ ind, routeVal, avatar, title }) => {
           </Text>
         </View>
       )}
+      {userB.email &&  (
+        <View style={Styles.online}>
+          <Text style={{ color: colors.white, fontSize: 12.5 }}>Online</Text>
+        </View>
+      )}
 
       {title && (
         <View style={Styles.title}>
@@ -39,7 +45,7 @@ export const ComponentHeader = ({ ind, routeVal, avatar, title }) => {
         </View>
       )}
 
-      {ind == "true" && contact.length==0 && (
+      {ind == "true" && contact.length == 0 && (
         <View style={Styles.ind}>
           <ActivityIndicator color={colors.white} size={17} />
         </View>
@@ -52,14 +58,24 @@ const Styles = StyleSheet.create({
   container: {
     flexDirection: "row",
   },
+  avatar: {
+    right: 20,
+    alignItems:"center",
+    justifyContent:"center",
+  },
   title: {
     marginLeft: 15,
     alignItems: "center",
     justifyContent: "center",
+    right: 18,
   },
   ind: {
     left: Dimensions.get("screen").width * 0.4,
     justifyContent: "center",
     alignItems: "center",
+  },
+  online: {
+    right: 80,
+    top: 30,
   },
 });
