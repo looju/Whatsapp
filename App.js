@@ -36,6 +36,17 @@ function App() {
     return () => unSubscribe();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem("userData");
+        jsonValue != null ? setCurrentUser(JSON.parse(jsonValue)) : null
+      } catch (e) {
+        console.log("Problem fetching local user data at App.js " + e);
+      }
+    })();
+  }, []);
+
   return (
     <NavigationContainer>
       {!currentUser ? (
@@ -70,7 +81,13 @@ function App() {
             name="Contacts"
             component={Contacts}
             options={{
-              headerTitle: (props)=><ComponentHeader ind="true" title={"Select contact"} {...props}/>,
+              headerTitle: (props) => (
+                <ComponentHeader
+                  ind="true"
+                  title={"Select contact"}
+                  {...props}
+                />
+              ),
               headerTitleStyle: { color: colors.white },
               headerBackTitleStyle: { color: colors.white },
             }}
@@ -78,7 +95,11 @@ function App() {
           <Stack.Screen
             name="ChatRoom"
             component={ChatRoom}
-            options={{ headerTitle: (props) => <ComponentHeader {...props} routeVal avatar /> }}
+            options={{
+              headerTitle: (props) => (
+                <ComponentHeader {...props} routeVal avatar />
+              ),
+            }}
           />
         </Stack.Navigator>
       )}
