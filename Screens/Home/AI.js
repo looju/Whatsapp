@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   ImageBackground,
+  Vibration
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -41,7 +42,7 @@ export const AI = () => {
   const [input, setInput] = useState(null);
   const [prevMsgs, setPrevMsgs] = useState("");
 
- 
+  console.log(input);
 
   const handleSend = async () => {
     const configuration = new Configuration({
@@ -54,8 +55,6 @@ export const AI = () => {
       messages: [{ role: "user", content: input }],
     });
 
-
-
     const storeAIandUserMessage = await setDoc(doc(db, "AIchat", user.email), {
       user: user.email,
       usermessage: input,
@@ -65,23 +64,25 @@ export const AI = () => {
 
     await Promise.all([completion, storeAIandUserMessage])
       .then(setInput(""))
+      .then(console.log("done"))
       .catch((error) => console.log(error));
   };
 
   const timeStampToDate = (value) => {
     var t = new Date(1970, 0, 1);
     t.setSeconds(value);
-    return t.toString()
+    return t.toString();
   };
 
   useEffect(
     () =>
       onSnapshot(doc(db, "AIchat", user.email), (snapshot) => {
-        const msgData=snapshot.data()
-        setPrevMsgs(msgData);
+        setPrevMsgs(snapshot.data());
       }),
     [db]
   );
+
+  console.log(prevMsgs);
 
   return (
     <ImageBackground
@@ -90,46 +91,44 @@ export const AI = () => {
       style={Styles.container}
       blurRadius={1}
     >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={Styles.container}
-        keyboardVerticalOffset={10}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView style={Styles.container}>
-            <SenderMessage
-              message={prevMsgs?.usermessage}
-              time={timeStampToDate(prevMsgs?.timestamp?.seconds)}
-            />
-            <AiMessage
-              message={prevMsgs?.AImessage}
-              time={timeStampToDate(prevMsgs?.timestamp?.seconds)}
-            />
-          </ScrollView>
-        </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView style={Styles.scrollView}>
+          <SenderMessage
+            message={prevMsgs?.usermessage}
+            time={timeStampToDate(prevMsgs?.timestamp?.seconds)}
+          />
+          <AiMessage
+            message={prevMsgs?.AImessage}
+            time={timeStampToDate(prevMsgs?.timestamp?.seconds) || new Date()}
+          />
+        </ScrollView>
+      </TouchableWithoutFeedback>
 
-        <View style={Styles.inputView}>
-          <TextInput
-            style={Styles.messageInput}
-            placeholder="Chat with AI..."
-            value={input}
-            onChangeText={(text) => setInput(text)}
-            onSubmitEditing={() => handleSend()}
-          />
-          <MaterialCommunityIcons
-            color={colors.foreground}
-            size={30}
-            name="send"
-            onPress={() => handleSend()}
-          />
-        </View>
-      </KeyboardAvoidingView>
+      <View style={Styles.inputView}>
+        <TextInput
+          style={Styles.messageInput}
+          placeholder="Chat with AI..."
+          value={input}
+          onChangeText={(text) => setInput(text)}
+          onSubmitEditing={() => handleSend()}
+        />
+        <MaterialCommunityIcons
+          color={colors.foreground}
+          size={30}
+          name="send"
+          onPress={() => {handleSend() ; Vibration.vibrate(2*1000)}}
+        />
+      </View>
     </ImageBackground>
   );
 };
 
 const Styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "#ff0",
+  },
+  scrollView: {
     flex: 1,
   },
   inputView: {
