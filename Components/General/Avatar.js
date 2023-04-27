@@ -12,7 +12,7 @@ export const Avatar = ({ size, user }) => {
       source={
         user.photoURL
           ? { uri: user.photoURL }
-          : require("../../assets/usericon.png")
+          : require("../../assets/usericon.jpg")
       }
       resizeMethod="auto"
       resizeMode="cover"

@@ -100,7 +100,7 @@ export const ChatRoom = () => {
       }
     })();
   }, []);
-  // return an array containing only added messages
+  
   useEffect(() => {
     const unsubscribe = onSnapshot(roomMessageRef, (snapShot) => {
       const messagesFirestore = snapShot
@@ -129,7 +129,7 @@ export const ChatRoom = () => {
     const updateWrites = writes.push(
       updateDoc(roomRef, { lastMessage: lastMessage })
     );
-    await Promise.all(updateWrites);
+    await Promise.all([writes,updateWrites]);
   }
 
   const sendImage = async (uri, roomPath) => {

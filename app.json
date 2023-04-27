@@ -5,18 +5,18 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "plugins": [
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app requires permission to access your photos."
+          "photosPermission": "Whatsapp requires permission to access your photos."
         }
       ],
       [
         "expo-contacts",
         {
-          "contactsPermission": "The app requires permissionto access your contacts."
+          "contactsPermission": "Whatsapp requires permission to access your contacts."
         }
       ]
     ],
@@ -24,17 +24,33 @@
       "image": "./assets/splash.png",
       "resizeMode": "cover"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSContactsUsageDescription": "Whatsapp requires permissionto access your contacts."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/splash.png"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_CONTACTS",
+        "android.permission.WRITE_CONTACTS"
+      ],
+      "package": "com.loju.Whatsapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9fcbc7f8-e36b-41fe-965d-75092da68536"
+      }
     }
   }
 }

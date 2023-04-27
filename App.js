@@ -1,12 +1,11 @@
 import "react-native-url-polyfill/auto";
 import "react-native-gesture-handler";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { useAssets } from "expo-asset";
 import { ActivityIndicator } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Application from 'expo-application';
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInNav } from "./Navigator/SignInNav";
@@ -24,16 +23,17 @@ Application.applicationName="Whatsapp"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const {
     theme: { colors },
   } = useContext(GlobalContext);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
-      setLoading(false);
       if (user) {
         setCurrentUser(user);
+      }
+      else {
+        setCurrentUser(null)
       }
     });
     return () => unSubscribe();

@@ -13,7 +13,7 @@ export const Photo = () => {
       navigation.navigate("Contacts", { image: result });
       if (result.canceled) {
         setCancelled(true);
-        setTimeout(() => navigation.navigate("Chat"), 1000);
+        navigation.navigate("Chat");
       }
     });
 
