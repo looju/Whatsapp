@@ -6,6 +6,8 @@ import { ActivityIndicator } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Config/Firebase";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Application from 'expo-application';
 import { NavigationContainer } from "@react-navigation/native";
 import { SignInNav } from "./Navigator/SignInNav";
 import { Profile } from "./Screens/Account/Profile";
@@ -18,6 +20,7 @@ import { ComponentHeader } from "./Components/General/ComponentHeader";
 import { ChatRoom } from "./Screens/ChatRoom/ChatRoom";
 
 const Stack = createStackNavigator();
+Application.applicationName="Whatsapp"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -36,16 +39,7 @@ function App() {
     return () => unSubscribe();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem("userData");
-        jsonValue != null ? setCurrentUser(JSON.parse(jsonValue)) : null
-      } catch (e) {
-        console.log("Problem fetching local user data at App.js " + e);
-      }
-    })();
-  }, []);
+  
 
   return (
     <NavigationContainer>

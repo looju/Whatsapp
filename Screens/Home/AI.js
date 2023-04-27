@@ -41,7 +41,7 @@ export const AI = () => {
   const [input, setInput] = useState(null);
   const [prevMsgs, setPrevMsgs] = useState("");
 
-  console.log(input);
+ 
 
   const handleSend = async () => {
     const configuration = new Configuration({
@@ -54,6 +54,8 @@ export const AI = () => {
       messages: [{ role: "user", content: input }],
     });
 
+
+
     const storeAIandUserMessage = await setDoc(doc(db, "AIchat", user.email), {
       user: user.email,
       usermessage: input,
@@ -63,7 +65,6 @@ export const AI = () => {
 
     await Promise.all([completion, storeAIandUserMessage])
       .then(setInput(""))
-      .then(console.log("done"))
       .catch((error) => console.log(error));
   };
 
@@ -76,7 +77,8 @@ export const AI = () => {
   useEffect(
     () =>
       onSnapshot(doc(db, "AIchat", user.email), (snapshot) => {
-        setPrevMsgs(snapshot.data());
+        const msgData=snapshot.data()
+        setPrevMsgs(msgData);
       }),
     [db]
   );

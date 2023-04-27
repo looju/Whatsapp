@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { Button } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Constants from "expo-constants";
 import { GlobalContext } from "../../Services/Context/Context";
 import { auth, db } from "../../Config/Firebase";
@@ -28,13 +29,15 @@ export const Profile = ({ navigation }) => {
     theme: { colors },
   } = useContext(GlobalContext);
 
+  const user= auth.currentUser
+ 
+
   const [displayName, setDisplayName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [permissionStatus, setPermissionStatus] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  
   const handlePress = async () => {
-    const user = auth.currentUser; // fetch current user
     let photoURL;
     setLoading(true);
     if (selectedImage) {
@@ -45,6 +48,8 @@ export const Profile = ({ navigation }) => {
       );
       photoURL = url;
     }
+
+   
 
     const userData = {
       displayName: displayName,
@@ -57,19 +62,18 @@ export const Profile = ({ navigation }) => {
     await Promise.all([
       updateProfile(user, userData),
       setDoc(doc(db, "users", user.uid), { ...userData, uid: user.uid }),
-      storeDataLocally()
     ]).then(setLoading(false));
     navigation.navigate("Home");
   };
 
-  async function storeDataLocally() {
-    try {
-      const jsonValue = JSON.stringify(userData);
-      await AsyncStorage.setItem("userData", jsonValue);
-    } catch (e) {
-      console.log("error saving user data locally at Profile.js" + e);
-    }
-  }
+  // async function storeDataLocally(userData) {
+  //   try {
+  //     const jsonValue = JSON.stringify(userData);
+  //     await AsyncStorage.setItem("userData", jsonValue);
+  //   } catch (e) {
+  //     console.log("error saving user data locally at Profile.js" + e);
+  //   }
+  // }
 
   const handleProfilePicture = async () => {
     const result = await PickImage();
@@ -99,6 +103,16 @@ export const Profile = ({ navigation }) => {
     })();
   }, []);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const jsonValue = await AsyncStorage.getItem("userData");
+  //       jsonValue != null ? setUser(JSON.parse(jsonValue)) : null;
+  //     } catch (e) {
+  //       console.log("Problem fetching local user data at App.js " + e);
+  //     }
+  //   })();
+  // }, []);
   return (
     <View
       style={[

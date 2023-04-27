@@ -6,9 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { connectAuthEmulator } from "firebase/auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useContext, useState } from "react";
-import { signUp, signIn, auth } from "../../Config/Firebase";
+import { signUp, signIn } from "../../Config/Firebase";
 import { Button } from "react-native-paper";
 import { GlobalContext } from "../../Services/Context/Context";
 
@@ -30,6 +30,16 @@ export const SignIn = () => {
       await signIn(email, password).catch((error) => setErrorMsg(error.code));
     }
   };
+
+  // async function storeDataLocally(userData) {
+  //   try {
+  //     const jsonValue = JSON.stringify(userData);
+  //     await AsyncStorage.setItem("userData", jsonValue);
+  //   } catch (e) {
+  //     console.log("error saving user data locally at Profile.js" + e);
+  //   }
+  // }
+
 
   return (
     <View style={[Styles.container, { backgroundColor: colors.black }]}>
