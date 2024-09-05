@@ -1,5 +1,5 @@
 # Whatsapp+AI
-A cross-platform desktop application for image resizing
+Cloned the social media application called Whatsapp. Integrated user display picture, 1v1 chat with stored contacts, media attachments such as pictures, 1v1 video call, and Ai chat.
 
 ## Recommended IDE Setup
 
@@ -33,7 +33,7 @@ $ eas build --platform ios
 ```
 [Check out Expo's docs on releasing standalone builds for more info](https://docs.expo.dev/build/setup/#build-for-android-emulatordevice-or-ios-simulator)
 
-###Gallery
+### Gallery
 
 <div>
 <img src="https://github.com/user-attachments/assets/a97c2f6f-e9b8-4b12-8752-62e0c4fa58bd" width="400"/> <img src="https://github.com/user-attachments/assets/d2da6908-c747-4a2a-ae64-6f9bb04d63ce" width="400" />  
