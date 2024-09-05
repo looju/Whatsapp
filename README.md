@@ -47,13 +47,11 @@ $ eas build --platform ios
 
 </div>
 <div>
-<img src="https://github.com/user-attachments/assets/baf1c9a3-256b-4cd9-8db5-a0e46eebc977" width="400"/> <img src="https://github.com/user-attachments/assets/3468dcf7-8ce0-4d42-aa92-1ed151c1ae23" width="400"/> 
+<img src="https://github.com/user-attachments/assets/baf1c9a3-256b-4cd9-8db5-a0e46eebc977" width="400"/> <img src="https://github.com/user-attachments/assets/56712657-0381-4d43-b53e-056c77224ec7" width="400"/> 
 
 </div>
 <div>
 <img src="https://github.com/user-attachments/assets/aabc14bd-6448-48e9-8ef4-144061132b81" width="400"/> <img src="https://github.com/user-attachments/assets/3bbe80a8-70b3-4817-bfba-ec3cf3ec86bf" width="400"/>
 </div>
-
-
 
 
