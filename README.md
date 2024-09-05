@@ -35,8 +35,8 @@ $ eas build --platform ios
 
 ###Gallery
 
-![Screenshot_20230427-180036|200](https://github.com/user-attachments/assets/846771e4-308d-417b-882f-ed19c56d70f7|height=10)
-![Screenshot_20230427-180028](https://github.com/user-attachments/assets/08815bd9-c630-41cc-81fe-846c95e28161|width=10|height=50)
+![Screenshot_20230427-180036|200](https://github.com/user-attachments/assets/846771e4-308d-417b-882f-ed19c56d70f7)
+![Screenshot_20230427-180028](https://github.com/user-attachments/assets/08815bd9-c630-41cc-81fe-846c95e28161)
 ![Screenshot_20230427-180017](https://github.com/user-attachments/assets/d6d2e000-7ae6-4181-b1bb-88d99fc4929e)
 ![Screenshot_20230427-180005](https://github.com/user-attachments/assets/f0603160-a98c-471f-8af2-d3a346b84cb0)
 ![Screenshot_20230427-175934](https://github.com/user-attachments/assets/a97c2f6f-e9b8-4b12-8752-62e0c4fa58bd)
