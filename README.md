@@ -33,9 +33,6 @@ $ eas build --platform ios![Screenshot_20230427-175952](https://github.com/user-
 ```
 [Check out Expo's docss on releasing standalone builds for more info](https://docs.expo.dev/build/setup/#build-for-android-emulatordevice-or-ios-simulator)
 
-### Gallery![Screenshot_20230427-175934](https://github.com/user-attachments/assets/0734762a-4351-4130-adfa-3222f9cb7bfa)
-
-
 ###Gallery
 ![Screenshot_20230427-180036](https://github.com/user-attachments/assets/846771e4-308d-417b-882f-ed19c56d70f7){style="height:83px"}
 ![Screenshot_20230427-180028](https://github.com/user-attachments/assets/08815bd9-c630-41cc-81fe-846c95e28161){: style="height:83px"}
