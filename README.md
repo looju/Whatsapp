@@ -33,17 +33,18 @@ $ eas build --platform ios![Screenshot_20230427-175952](https://github.com/user-
 ```
 [Check out Expo's docss on releasing standalone builds for more info](https://docs.expo.dev/build/setup/#build-for-android-emulatordevice-or-ios-simulator)
 
-### Gallery
+### Gallery![Screenshot_20230427-175934](https://github.com/user-attachments/assets/0734762a-4351-4130-adfa-3222f9cb7bfa)
+
 
 ###Gallery
-![Screenshot_20230427-181849](https://github.com/user-attachments/assets/0375af46-fd9b-4e1f-8c0a-c3909f169172)
-![Screenshot_20230427-180017](https://github.com/user-attachm![Screenshot_20230427-183314](https://github.com/user-attachments/assets/89ca94a9-ebfa-47b1-acf6-ae2026ecb368)
-![Screenshot_20230427-183139](https://github.com/user-attachments/assets/6d42ade2-4428-43bd-a637-77b3993b01ab)
-![Screenshot_20230427-182934](https://github.com/user-attachments/assets/d33ac832-1648-49a9-b4c8-49be2239e9cc)
-ents/asset![Screenshot_20230427-181912](https://github.com/user-attachments/assets/21719490-0afc-42cc-8596-83b39c0679ce)
-![Screenshot_20230427-180036](https://github.com/user-attachments/assets/6802569a-b107-49ed-9314-2d978c7b5f06)
-![Screenshot_20230427-182119](https://github.com/user-attachments/assets/2115cf69-5ec5-4d4b-ad66-0cbed2b9e428)
-s/4c5d41ad-fdd5-42a3-b9fa-4bd01ae74dd6)![Screenshot_20230427-180028](https://github.com/user-attachments/assets/c659d80a-ca09-4588-8087-dd65c9021522)
-
-![Screenshot_20230427-180005](https://github.com/user-attachments/assets/d7451316-a15d-4d97-9926-319f8ffe430a)
-![Screenshot_20230427-181136](https://github.com/user-attachments/assets/836a28e4-897c-4e59-8a66-c28b883611ca)
+![Screenshot_20230427-180118](https://github.com/user-att![Screenshot_20230427-181912](https://github.com/user-attachments/assets/744ade75-ad66-4d13-bb24-5695eb9a6fb9)
+achments/assets/1c83aaa0-2cbb-47e8-a403-41b50ed46e41)
+![Screenshot_20230427-180036](https://github.com/user-attachments/assets/846771e4-308d-417b-882f-ed19c56d70f7)
+![Screenshot_20230427-180028](https://github.com/user-attachments/assets/08815bd9-c630-41cc-81fe-846c95e28161)
+![Screenshot_20230427-180017](https://github.com/user-attachments/assets/d6d2e000-7ae6-4181-b1bb-88d99fc4929e)
+![Screenshot_20230427-180005](https://github.com/user-attachments/assets/f0603160-a98c-471f-8af2-d3a346b84cb0)
+![Screenshot_20230427-175952](https://github.com/user-attachments/assets/d2da6908-c747-4a2a-ae64-6f9bb04d63ce)
+![Screenshot_20230427-181849](https://github.com/user-attachments/assets/baf1c9a3-256b-4cd9-8db5-a0e46eebc977)
+![Screenshot_20230427-175946](https://github.com/user-attachments/assets/3468dcf7-8ce0-4d42-aa92-1ed151c1ae23)
+![Screenshot_20230427-181136](https://github.com/user-attachments/assets/aabc14bd-6448-48e9-8ef4-144061132b81)
+![Screenshot_20230427-183314](https://github.com/user-attachments/assets/3bbe80a8-70b3-4817-bfba-ec3cf3ec86bf)
